@@ -19,12 +19,9 @@ export class LoginComponent {
 
   login() {
     if(this.form.valid) {
-      console.log([this.form.value.email, this.form.value.password])
       this.signinUC.execute([this.form.value.email, this.form.value.password]).then(user => {
         if(user)
           console.log("Signed in");
-        else
-          console.log("Error signin in");
       }).catch(() => {
         this.error = "Email o contraseña inválidos";
     });
