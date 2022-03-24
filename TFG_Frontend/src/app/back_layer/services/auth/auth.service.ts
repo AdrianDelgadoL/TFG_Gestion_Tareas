@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private auth: AngularFireAuth) { }
 
   login(email: string, password: string) {
-    this.auth.signInWithEmailAndPassword(email, password).then(r => {
+    return this.auth.signInWithEmailAndPassword(email, password).then(r => {
       return r
     });
   }
