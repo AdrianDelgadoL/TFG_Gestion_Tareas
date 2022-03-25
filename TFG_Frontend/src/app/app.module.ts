@@ -13,13 +13,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {getAuth, provideAuth} from "@angular/fire/auth";
 import {provideFirestore} from "@angular/fire/firestore";
-import {getFirestore} from "@angular/fire/firestore/lite";
+import {getFirestore} from "@angular/fire/firestore";
 import {ScreenTrackingService, UserTrackingService} from "@angular/fire/analytics";
+import { TaskListComponent } from './front_layer/pages/task-list/task-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
