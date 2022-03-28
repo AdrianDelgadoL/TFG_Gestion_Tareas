@@ -4,6 +4,7 @@ export class Task {
   date: Date = new Date()
   type: string = ""
   verified: boolean = false
+  assigned: string = ""
   extraFields: Array<any> | undefined
 
   constructor(
@@ -12,6 +13,7 @@ export class Task {
     date: Date,
     type: string,
     verified: boolean,
+    assigned: string,
     extraFields?: Array<any>
   ) {
     this.id = id
@@ -19,6 +21,7 @@ export class Task {
     this.date = date;
     this.type = type;
     this.verified = verified;
+    this.assigned = assigned;
     this.extraFields = extraFields;
   }
 }

@@ -16,6 +16,7 @@ import {provideFirestore} from "@angular/fire/firestore";
 import {getFirestore} from "@angular/fire/firestore";
 import {ScreenTrackingService, UserTrackingService} from "@angular/fire/analytics";
 import { TaskListComponent } from './front_layer/pages/task-list/task-list.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -23,19 +24,20 @@ import { TaskListComponent } from './front_layer/pages/task-list/task-list.compo
     LoginComponent,
     TaskListComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        AppRoutingModule,
+        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTableModule
+    ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent]
 })

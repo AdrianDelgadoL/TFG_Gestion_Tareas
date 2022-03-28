@@ -10,6 +10,5 @@ export class GetTasksUseCase implements UseCaseTemplate<null, Promise<any>> {
   }
   async execute(operator: null): Promise<any> {
     return await this.db.getTasks();
-
   }
 }

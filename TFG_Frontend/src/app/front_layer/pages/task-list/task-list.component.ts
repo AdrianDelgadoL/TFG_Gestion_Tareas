@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {DatabaseService} from "../../../back_layer/services/database/database.service";
+import {Component, OnInit} from '@angular/core';
 import {GetTasksUseCase} from "../../../uc_layer/database/get-tasks.usecase";
 import {Task} from "../../../entities/task";
 
@@ -12,10 +11,14 @@ export class TaskListComponent implements OnInit {
 
   constructor(private getTasks: GetTasksUseCase) { }
 
-  taskList: Array<Task> = [];
+  taskList: Task[] = [];
+  displayedColumns = ["name", "date", "assignee"];  // Columns displayed in the task list
 
   ngOnInit(): void {
-    this.getTasks.execute(null).then(r => this.taskList = r);
+    this.getTasks.execute(null).then(r => {
+      this.taskList = r
+      console.log(this.taskList)
+    });
   }
 
 }

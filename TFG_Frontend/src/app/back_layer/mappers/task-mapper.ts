@@ -1,14 +1,15 @@
 import {Task} from "../../entities/task";
 
 export class TaskMapper {
-  deserialize(id: string, data: any) {
+  deserialize(id: string, data: any, workers: any) {
     return new Task(
       id,
       data["Nombre"],
-      data["Fecha de entrega"],
+      data["Fecha de entrega"]?.toDate(),
       data["Tipo de tarea"],
       data["Verificada"],
-      data["Campos extra"]
+      workers,
+      data["Campos extra"],
     )
   }
 }
