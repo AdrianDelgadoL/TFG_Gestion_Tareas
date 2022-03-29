@@ -12,11 +12,11 @@ import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {getAuth, provideAuth} from "@angular/fire/auth";
-import {provideFirestore} from "@angular/fire/firestore";
-import {getFirestore} from "@angular/fire/firestore";
+import {getFirestore, provideFirestore} from "@angular/fire/firestore";
 import {ScreenTrackingService, UserTrackingService} from "@angular/fire/analytics";
-import { TaskListComponent } from './front_layer/pages/task-list/task-list.component';
+import {TaskListComponent} from './front_layer/pages/task-list/task-list.component';
 import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import {MatTableModule} from "@angular/material/table";
         MatButtonModule,
         MatInputModule,
         ReactiveFormsModule,
-        MatTableModule
+        MatTableModule,
+        MatSortModule
     ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent]
