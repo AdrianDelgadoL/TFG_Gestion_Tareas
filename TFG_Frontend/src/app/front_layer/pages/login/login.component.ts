@@ -10,7 +10,9 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
 
-  constructor(private signinUC: SigninUseCase, private router: Router) { }
+  constructor(private signinUC: SigninUseCase,
+              private router: Router,
+              ) { }
 
   form: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -21,9 +23,9 @@ export class LoginComponent {
   login() {
     if(this.form.valid) {
       this.signinUC.execute([this.form.value.email, this.form.value.password]).then(user => {
-        if(user)
+        if(user) {
           this.router.navigateByUrl("/tasks")
-
+        }
       }).catch(() => {
         this.error = "Email o contraseña inválidos";
     });

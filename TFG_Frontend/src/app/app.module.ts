@@ -17,7 +17,7 @@ import {ScreenTrackingService, UserTrackingService} from "@angular/fire/analytic
 import {TaskListComponent} from './front_layer/pages/task-list/task-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
-import { NavbarComponent } from './front_layer/navbar/navbar.component';
+import {NavbarComponent} from './front_layer/navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
@@ -44,6 +44,6 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatToolbarModule
   ],
   providers: [ScreenTrackingService, UserTrackingService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
