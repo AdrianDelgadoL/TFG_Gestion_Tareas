@@ -17,28 +17,32 @@ import {ScreenTrackingService, UserTrackingService} from "@angular/fire/analytic
 import {TaskListComponent} from './front_layer/pages/task-list/task-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import { NavbarComponent } from './front_layer/navbar/navbar.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    TaskListComponent
+    TaskListComponent,
+    NavbarComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        AppRoutingModule,
-        provideFirebaseApp(() => initializeApp(firebaseConfig)),
-        provideAuth(() => getAuth()),
-        provideFirestore(() => getFirestore()),
-        MatCardModule,
-        MatButtonModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatSortModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatToolbarModule
+  ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent]
 })
