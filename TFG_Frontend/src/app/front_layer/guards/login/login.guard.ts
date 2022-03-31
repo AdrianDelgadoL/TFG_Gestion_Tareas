@@ -11,7 +11,7 @@ export class LoginGuard implements CanActivate {
   }
 
   async canActivate() {
-    const user = await this.getUserUseCase.execute();
+    const user = await this.getUserUseCase.execute(null);
     if(!user) {
       return true;
     }

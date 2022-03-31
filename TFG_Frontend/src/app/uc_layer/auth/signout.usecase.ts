@@ -9,7 +9,7 @@ export class SignOutUseCase implements UseCaseTemplate<null, Promise<any>> {
   constructor(private auth: AuthService) {
   }
 
-  execute(): Promise<any> {
+  execute(operator: null): Promise<any> {
     return this.auth.signOut();
   }
 }

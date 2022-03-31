@@ -8,7 +8,7 @@ import {AuthService} from "../../back_layer/services/auth/auth.service";
 export class GetUserUseCase implements UseCaseTemplate<null, any>{
   constructor(private auth: AuthService) {
   }
-  async execute(): Promise<any> {
+  async execute(operator: null): Promise<any> {
     return await this.auth.getUser();
   }
 }

@@ -1,8 +1,13 @@
-<mat-form-field appearance="standard">
-  <mat-label>Filtrar tareas por nombre</mat-label>
-  <input matInput (keyup)="applyFilter($event)">
-</mat-form-field>
+<!-- Filter search field -->
+<div class="inputs">
+  <mat-form-field appearance="standard">
+    <mat-label>Filtrar tareas por nombre</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <button routerLink="/createTask" mat-raised-button class="create-button"> Crear nueva tarea</button>
+</div>
 
+<!-- Mat table that includes sorting and filtering -->
 <table mat-table [dataSource]="taskList" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Nombre</th>
@@ -11,7 +16,7 @@
   <ng-container matColumnDef="date">
     <th mat-header-cell mat-sort-header sortActionDescription="Ordenar por fecha" *matHeaderCellDef>Fecha de entrega</th>
     <td mat-cell *matCellDef="let task">
-        {{task.date | date: "dd-MM-yyyy"}}
+        {{task.date | date: "dd-MM-yyyy"}}  <!-- Unknown pipe error, it works properly -->
     </td>
   </ng-container>
   <ng-container matColumnDef="assignee">
@@ -23,7 +28,7 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="delete">
-    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element; let j = index;">
       <button mat-raised-button color="warn" (click)="deleteTask(j)">
         <i></i> Eliminar
@@ -34,6 +39,7 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+  <!-- In case no data matches the filter, this row is shown instead -->
   <tr class="mat-row" *matNoDataRow>
     <td class="mat-cell" colspan="4">No se han encontrado tareas para ese filtro</td>
   </tr>

@@ -19,13 +19,19 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {NavbarComponent} from './front_layer/navbar/navbar.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {CreateTaskFormComponent} from './front_layer/pages/create-task-form/create-task-form.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSelectModule} from "@angular/material/select";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TaskListComponent,
-    NavbarComponent
+    NavbarComponent,
+    CreateTaskFormComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,12 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],

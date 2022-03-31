@@ -25,6 +25,10 @@ export class LoginComponent {
       this.signinUC.execute([this.form.value.email, this.form.value.password]).then(user => {
         if(user) {
           this.router.navigateByUrl("/tasks")
+            .catch(err => {
+              console.log("Error navigating" + err);
+              this.router.navigateByUrl("/login")
+            });
         }
       }).catch(() => {
         this.error = "Email o contraseña inválidos";

@@ -14,8 +14,13 @@ export class NavbarComponent {
               ) {}
 
   signOut() {
-    this.signoutUC.execute().then(() => {
-      this.router.navigateByUrl("/login")
+    this.signoutUC.execute(null).then(() => {
+      this.router.navigateByUrl("/login").catch(err => {
+        console.log("Error navigating " + err);
+      });
     })
+      .catch(err => {
+        console.log("Error signin out" + err)
+      });
   }
 }

@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   }
 
   async canActivate() {
-    const user = await this.getUserUC.execute();
+    const user = await this.getUserUC.execute(null);
     if(!user) {
       await this.router.navigateByUrl("/login");
       return false;
