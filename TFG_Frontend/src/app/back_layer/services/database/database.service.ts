@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {collection, doc, Firestore, getDoc, getDocs} from "@angular/fire/firestore";
+import {collection, deleteDoc, doc, Firestore, getDoc, getDocs} from "@angular/fire/firestore";
 import {Task} from "../../../entities/task";
 import {TaskMapper} from "../../mappers/task-mapper";
 import {WorkerMapper} from "../../mappers/worker-mapper";
@@ -30,6 +30,10 @@ export class DatabaseService {
       tasks.push(taskMapper.deserialize(doc.id, doc.data(), workers))
     })
     return tasks
+  }
+
+  async deleteTask(id: string) {
+    return await deleteDoc(doc(this.db, "Tareas", id));
   }
 
   async getWorkers() {}
