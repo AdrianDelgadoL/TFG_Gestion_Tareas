@@ -10,7 +10,6 @@ export class CreateTaskUseCase implements UseCaseTemplate< {name: string, date: 
   }
 
   execute(operator: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] }): void {
-    this.db.createTask(operator);
+    this.db.createTask(operator).catch(err => console.log("Error creating task " + err));
   }
-
 }

@@ -16,7 +16,6 @@ export class DatabaseService {
 
   // Task data
   async createTask(docData: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] }) {
-    console.log(docData)
     const docRef = await addDoc(collection(this.db, "Tareas"), docData);
     console.log("Doc created" + docRef.id);
   }
@@ -26,16 +25,16 @@ export class DatabaseService {
     let tasks: Task[] = [];
 
     const querySnapshot = await getDocs(collection(this.db, "Tareas"));
-    await querySnapshot.forEach(doc => {
+    querySnapshot.forEach(doc => {
       let workers: Worker[] = []
-      for (const data of doc.data()["assignedWorkers"]) {
+      doc.data()["assignedWorkers"].forEach((data: string) => {
         this.getWorkerByID(data).then(worker => {
           if(worker) {
             workers.push(worker);
           }
         });
+      })
         tasks.push(taskMapper.deserialize(doc.id, doc.data(), workers));
-      }
     });
     return tasks;
   }
@@ -63,7 +62,6 @@ export class DatabaseService {
     const docSnap = await getDoc(docRef);
 
     if(docSnap.exists()) {
-      console.log("WORKER EXISTS");
       return workerMapper.deserialize(docSnap.id, docSnap.data())
     }
     else {

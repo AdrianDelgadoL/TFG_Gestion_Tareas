@@ -8,9 +8,11 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="sidenav-content" [formGroup]="form">
+
       <div class="button">
         <button mat-raised-button type="button" (click)="createTask()">Terminar</button>
       </div>
+
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Nombre de tarea</mat-label>
@@ -19,10 +21,13 @@
         </mat-form-field>
 
         <span class="spacer"></span>
-
-        <button type="button" class="workers-button" mat-raised-button (click)="sidenav.toggle()">Empleados</button>
-        <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
-      </p>
+        <mat-form-field>
+          <mat-label>Empleados asignados</mat-label>
+          <input disabled [value]="assignedWorkers" matInput required>
+          <button mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
+          <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
+        </mat-form-field>
+        </p>
 
       <p>
         <mat-form-field appearance="fill">
@@ -45,6 +50,7 @@
           <mat-error *ngIf="form.controls['date'].errors">Elige una fecha</mat-error>
         </mat-form-field>
       </p>
+
       <p class="description">
         <mat-form-field style="width: 100%" appearance="outline" >
           <mat-label>Descripción</mat-label>

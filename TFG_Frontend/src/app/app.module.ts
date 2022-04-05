@@ -27,6 +27,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -36,30 +37,31 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     NavbarComponent,
     CreateTaskFormComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-    MatToolbarModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatSidenavModule,
-    MatListModule,
-    MatCheckboxModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        AppRoutingModule,
+        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideAuth(() => getAuth()),
+        provideFirestore(() => getFirestore()),
+        MatCardModule,
+        MatButtonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatDatepickerModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatFormFieldModule,
+        MatSidenavModule,
+        MatListModule,
+        MatCheckboxModule,
+        MatIconModule,
+    ],
   providers: [ScreenTrackingService, UserTrackingService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
   bootstrap: [AppComponent],
 })

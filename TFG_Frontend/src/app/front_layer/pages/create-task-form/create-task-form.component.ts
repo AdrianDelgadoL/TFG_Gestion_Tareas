@@ -5,6 +5,7 @@ import {GetWorkersUseCase} from "../../../uc_layer/database/get-workers.usecase"
 import {GetSpecsUseCase} from "../../../uc_layer/database/get-specs.usecase";
 import {Spec} from "../../../entities/spec";
 import {CreateTaskUseCase} from "../../../uc_layer/database/create-task-usecase";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-task-form',
@@ -17,6 +18,7 @@ export class CreateTaskFormComponent implements OnInit {
     private getWorkersUC: GetWorkersUseCase,
     private getSpecsUC: GetSpecsUseCase,
     private createTaskUC: CreateTaskUseCase,
+    private router: Router,
     ) { }
 
   form: FormGroup = new FormGroup({
@@ -31,21 +33,19 @@ export class CreateTaskFormComponent implements OnInit {
   specs: Spec[] = [];
   assignedWorkers: string[] = [];
   sidenavDirty: boolean = false; // Control if the sidenav is dirty in order to display error messages
-
+  colour: string | null = null;
   // Initialize worker and specialization data for worker and spec selectors
   ngOnInit() {
     this.getWorkersUC.execute(null).then(r => {
       this.workers = r;
     }).catch(err => {
-      console.log("Error ocurred retrieving data" + err);
+      console.log("Error ocurred retrieving data " + err);
     });
     this.getSpecsUC.execute(null).then(r => {
       this.specs = r;
-      console.log(r)
     }).catch(err => {
-      console.log("Error ocurred retrieving data" + err);
+      console.log("Error ocurred retrieving data " + err);
     });
-
   }
 
   createTask() {
@@ -59,10 +59,14 @@ export class CreateTaskFormComponent implements OnInit {
         description: this.form.value.description,
         assignedWorkers: this.assignedWorkers,
         extraFields: [], //TODO: Extra fields must be implemented
-      })
+      });
+      this.router.navigateByUrl("tasks").catch(err => "Error in navigation " + err);
     }
     else {
-      this.error = "Rellena los campos obligatorios";
+      this.error = "Completa los campos marcados";
+      this.form.markAllAsTouched();
+      this.sidenavDirty = true;
+      this.colour = "warn";
     }
   }
 
