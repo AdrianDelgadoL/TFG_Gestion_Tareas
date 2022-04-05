@@ -4,12 +4,12 @@ export class TaskMapper {
   deserialize(id: string, data: any, workers: any) {
     return new Task(
       id,
-      data["Nombre"],
-      data["Fecha de entrega"]?.toDate(),
-      data["Tipo de tarea"],
-      data["Verificada"],
+      data["name"],
+      data["date"]?.toDate(),
+      data["type"],
+      data["verified"],
       workers,
-      data["Campos extra"],
+      data["extraFields"],
     )
   }
 }

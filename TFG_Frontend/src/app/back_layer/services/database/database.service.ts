@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {collection, deleteDoc, doc, Firestore, getDoc, getDocs} from "@angular/fire/firestore";
+import {addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs} from "@angular/fire/firestore";
 import {Task} from "../../../entities/task";
 import {TaskMapper} from "../../mappers/task-mapper";
 import {WorkerMapper} from "../../mappers/worker-mapper";
@@ -15,22 +15,29 @@ export class DatabaseService {
   constructor(private db: Firestore) { }
 
   // Task data
+  async createTask(docData: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] }) {
+    console.log(docData)
+    const docRef = await addDoc(collection(this.db, "Tareas"), docData);
+    console.log("Doc created" + docRef.id);
+  }
+
   async getTasks() {
     let taskMapper = new TaskMapper();
     let tasks: Task[] = [];
+
     const querySnapshot = await getDocs(collection(this.db, "Tareas"));
-    querySnapshot.forEach(doc => {
+    await querySnapshot.forEach(doc => {
       let workers: Worker[] = []
-      if(doc.data()["Asignacion"]){
-        doc.data()["Asignacion"].forEach((data: string) => {
-          this.getWorkerByID(data).then(r => {
-            if (r != null) workers.push(r)
-          })
-        })
+      for (const data of doc.data()["assignedWorkers"]) {
+        this.getWorkerByID(data).then(worker => {
+          if(worker) {
+            workers.push(worker);
+          }
+        });
+        tasks.push(taskMapper.deserialize(doc.id, doc.data(), workers));
       }
-      tasks.push(taskMapper.deserialize(doc.id, doc.data(), workers))
-    })
-    return tasks
+    });
+    return tasks;
   }
 
   async deleteTask(id: string) {
@@ -38,6 +45,8 @@ export class DatabaseService {
   }
 
   // Workers data
+
+
   async getWorkers() {
     let workerMapper = new WorkerMapper();
     let workers: Worker[] = [];
@@ -54,6 +63,7 @@ export class DatabaseService {
     const docSnap = await getDoc(docRef);
 
     if(docSnap.exists()) {
+      console.log("WORKER EXISTS");
       return workerMapper.deserialize(docSnap.id, docSnap.data())
     }
     else {

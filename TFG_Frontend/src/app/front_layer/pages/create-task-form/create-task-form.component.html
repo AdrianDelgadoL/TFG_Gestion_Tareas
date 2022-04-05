@@ -1,40 +1,66 @@
-<form [formGroup]="form" (ngSubmit)="createTask()">
-  <p>
-    <mat-form-field>
-      <mat-label>Nombre de tarea</mat-label>
-      <input matInput placeholder="Nombre de tarea" formControlName="name">
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field>
-      <mat-label>Tipo de tarea</mat-label>
-      <mat-select formControlName="spec">
-        <mat-option *ngFor="let spec of specs" [value]="spec.name">
-          {{spec.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Elige una fecha</mat-label>
-      <input matInput formControlName="date" [matDatepicker]="picker">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field>
-      <mat-label>Descripción</mat-label>
-      <textarea matInput formControlName="description"></textarea>
-    </mat-form-field>
-  </p>
+<div class="container">
+  <mat-sidenav-container class="sidenav-container" autosize >
+    <mat-sidenav #sidenav mode="over" (closed)="sidenavDirty = true">
+        <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
+          <mat-list-option *ngFor="let worker of workers" [value]="worker.id">{{worker.name}} {{worker.surname}}</mat-list-option>
+        </mat-selection-list>
+    </mat-sidenav>
 
-  <p *ngIf="error" class="mat-error">
-    {{error}}
-  </p>
+    <mat-sidenav-content class="sidenav-content" [formGroup]="form">
+      <div class="button">
+        <button mat-raised-button type="button" (click)="createTask()">Terminar</button>
+      </div>
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre de tarea</mat-label>
+          <input matInput placeholder="Nombre de tarea" formControlName="name" required>
+          <mat-error *ngIf="form.controls['name'].errors">Introduce un nombre de tarea</mat-error>
+        </mat-form-field>
 
-  <div class="button">
-    <button mat-button type="submit">Crear</button>
-    <button mat-raised-button>Añadir campo</button>
-  </div>
-</form>
+        <span class="spacer"></span>
+
+        <button type="button" class="workers-button" mat-raised-button (click)="sidenav.toggle()">Empleados</button>
+        <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
+      </p>
+
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Tipo de tarea</mat-label>
+          <mat-select formControlName="type" required>
+            <mat-option *ngFor="let spec of specs" [value]="spec.id">
+              {{spec.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.controls['type'].errors">Elige un tipo de tarea</mat-error>
+        </mat-form-field>
+
+        <span class="spacer"></span>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Elige una fecha</mat-label>
+          <input matInput formControlName="date" [matDatepicker]="picker" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.controls['date'].errors">Elige una fecha</mat-error>
+        </mat-form-field>
+      </p>
+      <p class="description">
+        <mat-form-field style="width: 100%" appearance="outline" >
+          <mat-label>Descripción</mat-label>
+          <textarea  matInput formControlName="description"></textarea>
+        </mat-form-field>
+      </p>
+
+      <p *ngIf="error" class="mat-error">
+        {{error}}
+      </p>
+
+      <button mat-raised-button style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
+</div>

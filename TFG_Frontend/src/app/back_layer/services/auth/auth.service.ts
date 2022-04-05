@@ -17,9 +17,7 @@ export class AuthService {
   }
 
   signOut(): Promise<any> {
-    return signOut(this.auth).then(() => {
-      console.log("Signed out");
-    })
+    return signOut(this.auth)
       .catch(err => {
         console.log("error in sign out " + err);
       })

@@ -22,8 +22,11 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {CreateTaskFormComponent} from './front_layer/pages/create-task-form/create-task-form.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -53,8 +56,11 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCheckboxModule,
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [ScreenTrackingService, UserTrackingService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
