@@ -1,13 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="navbar">
     <div>Gestor de tareas</div>
-    <div>
+    <div *ngIf="userService.userId">
       <a routerLink="/tasks">Lista de tareas</a>
       <a routerLink="">Calendario</a>
       <a routerLink="">Lista de personal</a>
     </div>
     <div class="spacer"></div>
-    <div>
+    <div *ngIf="userService.userId">
       <a routerLink="" (click)="signOut()">Cerrar sesión</a>
     </div>
   </mat-toolbar-row>
