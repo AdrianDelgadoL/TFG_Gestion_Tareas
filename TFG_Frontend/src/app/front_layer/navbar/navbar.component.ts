@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {SignOutUseCase} from "../../uc_layer/auth/signout.usecase";
+import {UserService} from "../services/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -9,18 +9,16 @@ import {SignOutUseCase} from "../../uc_layer/auth/signout.usecase";
 })
 export class NavbarComponent {
 
-  constructor(public signoutUC: SignOutUseCase,
-              private router: Router
+  constructor(private router: Router,
+              public userService: UserService,
               ) {}
 
   signOut() {
-    this.signoutUC.execute(null).then(() => {
+    this.userService.signoutUser().then(()=> {
+      console.log("loging out");
       this.router.navigateByUrl("/login").catch(err => {
         console.log("Error navigating " + err);
       });
-    })
-      .catch(err => {
-        console.log("Error signin out" + err)
-      });
+    });
   }
 }
