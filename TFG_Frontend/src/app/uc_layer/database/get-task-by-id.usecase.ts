@@ -5,12 +5,13 @@ import {DatabaseService} from "../../back_layer/services/database/database.servi
 @Injectable({
   providedIn: "root"
 })
-export class GetWorkersUseCase implements UseCaseTemplate<null, Promise<any>> {
+export class GetTaskByIdUseCase implements UseCaseTemplate<string, Promise<any>> {
   constructor(private db: DatabaseService) {
   }
 
-  execute(operator: null): Promise<any> {
-    return this.db.getWorkers();
+  async execute(operator: string): Promise<any> {
+    return await this.db.getTaskByID(operator);
   }
+
 
 }

@@ -5,6 +5,7 @@ import {TaskListComponent} from "./front_layer/pages/task-list/task-list.compone
 import {AuthGuard} from "./front_layer/guards/auth-guard/auth.guard";
 import {LoginGuard} from "./front_layer/guards/login/login.guard";
 import {CreateTaskFormComponent} from "./front_layer/pages/create-task-form/create-task-form.component";
+import {TaskDetailComponent} from "./front_layer/pages/task-detail/task-detail.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'tasks',
     component: TaskListComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tasks/:id',
+    component: TaskDetailComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'createTask',

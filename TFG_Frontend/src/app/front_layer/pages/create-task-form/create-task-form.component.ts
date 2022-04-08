@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Worker} from "../../../entities/worker";
 import {GetWorkersUseCase} from "../../../uc_layer/database/get-workers.usecase";
@@ -27,7 +27,7 @@ export class CreateTaskFormComponent implements OnInit {
     date: new FormControl('', [Validators.required]),
     description: new FormControl('')
   })
-  @Input() error: string = "";
+  error: string = "";
 
   workers: Worker[] = [];
   specs: Spec[] = [];
@@ -49,7 +49,7 @@ export class CreateTaskFormComponent implements OnInit {
   }
 
   createTask() {
-    if(this.form.valid){
+    if(this.form.valid && this.assignedWorkers.length > 0){
       console.log("Create task")
       this.createTaskUC.execute({
         name: this.form.value.name,

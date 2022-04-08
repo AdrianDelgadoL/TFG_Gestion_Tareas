@@ -12,7 +12,10 @@ import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase"
 })
 export class TaskListComponent implements OnInit {
 
-  constructor(private getTasksUC: GetTasksUseCase, private deleteTaskUC: DeleteTaskUseCase) { }
+  constructor(
+    private getTasksUC: GetTasksUseCase,
+    private deleteTaskUC: DeleteTaskUseCase
+  ) { }
 
   taskList: MatTableDataSource<Task> = new MatTableDataSource();
   displayedColumns = ["name", "date", "assignee", "delete"];  // Columns displayed in the task list
