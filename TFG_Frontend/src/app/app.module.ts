@@ -29,6 +29,8 @@ import {MatListModule} from "@angular/material/list";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatIconModule} from "@angular/material/icon";
 import { TaskDetailComponent } from './front_layer/pages/task-detail/task-detail.component';
+import { DialogComponent } from './front_layer/dialog/dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { TaskDetailComponent } from './front_layer/pages/task-detail/task-detail
     TaskListComponent,
     NavbarComponent,
     CreateTaskFormComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    DialogComponent
   ],
     imports: [
         BrowserModule,
@@ -63,6 +66,7 @@ import { TaskDetailComponent } from './front_layer/pages/task-detail/task-detail
         MatListModule,
         MatCheckboxModule,
         MatIconModule,
+        MatDialogModule,
     ],
   providers: [ScreenTrackingService, UserTrackingService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
   bootstrap: [AppComponent],

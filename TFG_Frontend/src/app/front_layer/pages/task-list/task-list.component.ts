@@ -4,6 +4,9 @@ import {Task} from "../../../entities/task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../dialog/dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-list',
@@ -14,11 +17,13 @@ export class TaskListComponent implements OnInit {
 
   constructor(
     private getTasksUC: GetTasksUseCase,
-    private deleteTaskUC: DeleteTaskUseCase
+    private deleteTaskUC: DeleteTaskUseCase,
+    private dialog: MatDialog,
+    private router: Router,
   ) { }
 
   taskList: MatTableDataSource<Task> = new MatTableDataSource();
-  displayedColumns = ["name", "date", "assignee", "delete"];  // Columns displayed in the task list
+  displayedColumns = ["name", "date", "assignee", "edit", "delete"];  // Columns displayed in the task list
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   ngOnInit(): void {
@@ -33,10 +38,26 @@ export class TaskListComponent implements OnInit {
     this.taskList.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteTask(id: number) {
-    this.deleteTaskUC.execute(this.taskList.data[id]["id"]);
-    this.taskList.data.splice(id, 1);
-    this.taskList._updateChangeSubscription(); //Refresh datasource
+  openDialog(id: number) {
+    this.dialog.open(DialogComponent, {
+      width: "400px",
+      data: {
+        title: "Eliminar tarea",
+        message: "¿Seguro que quieres eliminar esta tarea?",
+        confirmText: "Sí",
+        cancelText: "No"
+        }
+    }).afterClosed().subscribe(async result => {
+      if (result) {
+        await this.deleteTaskUC.execute(this.taskList.data[id]["id"]);
+        this.taskList.data.splice(id, 1);
+        this.taskList._updateChangeSubscription(); //Refresh datasource
+      }
+    });
+  }
+
+  async navigateToDetail(id: number) {
+    await this.router.navigateByUrl("/tasks/" + this.taskList.data[id]["id"]);
   }
 
 }

@@ -64,22 +64,22 @@ export class TaskDetailComponent implements OnInit {
 
 
   async updateTask() {
-      await this.updateTaskUC.execute([this.router.url.split('/')[2],
-        {
-          name: this.form.value.name,
-          date: this.form.value.date,
-          type: this.form.value.type,
-          verified: this.verified,
-          description: this.form.value.description,
-          assignedWorkers: this.assignedWorkers,
-          extraFields: [], //TODO: Extra fields must be implemented
-        }
-      ]);
+    await this.updateTaskUC.execute([this.router.url.split('/')[2],
+      {
+        name: this.form.value.name,
+        date: this.form.value.date,
+        type: this.form.value.type,
+        verified: this.verified,
+        description: this.form.value.description,
+        assignedWorkers: this.assignedWorkers,
+        extraFields: [], //TODO: Extra fields must be implemented
+      }
+    ]);
     await this.router.navigateByUrl("/tasks");
   }
 
-  deleteTask() {
-    this.deleteTaskUC.execute(this.router.url.split('/')[2]).catch(err => console.log("Error deleting task " + err));
-    this.router.navigateByUrl("/tasks");
+  async deleteTask() {
+    await this.deleteTaskUC.execute(this.router.url.split('/')[2]);
+    await this.router.navigateByUrl("/tasks");
   }
 }

@@ -1,7 +1,7 @@
 
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
-    <mat-sidenav #sidenav mode="over" (closed)="sidenavDirty = true">
+    <mat-sidenav #sidenav mode="over" position="end" (closed)="sidenavDirty = true">
         <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
           <mat-list-option *ngFor="let worker of workers" [value]="worker.id">{{worker.name}} {{worker.surname}}</mat-list-option>
         </mat-selection-list>
@@ -25,7 +25,7 @@
           <mat-label>Empleados asignados</mat-label>
           <input readonly [value]="assignedWorkers" matInput required>
           <button mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
-          <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
+          <mat-error *ngIf="sidenavDirty && assignedWorkers.length === 0">Selecciona trabajadores para la tarea</mat-error>
         </mat-form-field>
         </p>
 

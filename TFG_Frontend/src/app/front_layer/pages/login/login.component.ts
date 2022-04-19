@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {SigninUseCase} from "../../../uc_layer/auth/signin.usecase";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-login',

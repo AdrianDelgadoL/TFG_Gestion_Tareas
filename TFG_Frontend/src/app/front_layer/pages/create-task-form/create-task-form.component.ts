@@ -33,7 +33,7 @@ export class CreateTaskFormComponent implements OnInit {
   specs: Spec[] = [];
   assignedWorkers: string[] = [];
   sidenavDirty: boolean = false; // Control if the sidenav is dirty in order to display error messages
-  colour: string | null = null;
+
   // Initialize worker and specialization data for worker and spec selectors
   ngOnInit() {
     this.getWorkersUC.execute(null).then(r => {
@@ -66,7 +66,7 @@ export class CreateTaskFormComponent implements OnInit {
       this.error = "Completa los campos marcados";
       this.form.markAllAsTouched();
       this.sidenavDirty = true;
-      this.colour = "warn";
+      console.log(!this.assignedWorkers);
     }
   }
 

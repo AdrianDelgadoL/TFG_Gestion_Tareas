@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {SignOutUseCase} from "../../uc_layer/auth/signout.usecase";
-import {SigninUseCase} from "../../uc_layer/auth/signin.usecase";
+import {SignOutUseCase} from "../../../uc_layer/auth/signout.usecase";
+import {SigninUseCase} from "../../../uc_layer/auth/signin.usecase";
 
 @Injectable({
   providedIn: 'root'
