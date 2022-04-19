@@ -10,22 +10,22 @@
     <mat-sidenav-content class="sidenav-content" [formGroup]="form">
 
       <div class="button">
-        <button *ngIf="!disabled" mat-raised-button type="button" (click)="updateTask()">Terminar</button>
-        <button *ngIf="disabled" mat-raised-button type="button" (click)="disabled = !disabled">Modificar</button>
+        <button mat-raised-button type="button" (click)="updateTask()">Terminar</button>
+        <button mat-raised-button type="button" color="warn" (click)="deleteTask()">Eliminar</button>
       </div>
 
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Nombre de tarea</mat-label>
-          <input [readonly]="disabled" matInput formControlName="name" required>
+          <input matInput formControlName="name" required>
           <mat-error *ngIf="form.controls['name'].errors">Introduce un nombre de tarea</mat-error>
         </mat-form-field>
 
         <span class="spacer"></span>
         <mat-form-field>
           <mat-label>Empleados asignados</mat-label>
-          <input readonly [value]="assignedWorkers" matInput>
-          <button [disabled]="disabled" mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
+          <input [value]="assignedWorkers" matInput>
+          <button mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
           <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
         </mat-form-field>
       </p>
@@ -33,7 +33,7 @@
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Tipo de tarea</mat-label>
-          <mat-select [disabled]="disabled" formControlName="type">
+          <mat-select formControlName="type">
             <mat-option *ngFor="let spec of specs" [value]="spec.id">
               {{spec.name}}
             </mat-option>
@@ -45,8 +45,8 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Elige una fecha</mat-label>
-          <input [readonly]="disabled" matInput formControlName="date" [matDatepicker]="picker" required>
-          <mat-datepicker-toggle [disabled]="disabled" matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input matInput formControlName="date" [matDatepicker]="picker" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="form.controls['date'].errors">Elige una fecha</mat-error>
         </mat-form-field>
@@ -55,14 +55,14 @@
       <p class="description">
         <mat-form-field style="width: 100%" appearance="outline" >
           <mat-label>Descripción</mat-label>
-          <textarea [readonly]="disabled" matInput formControlName="description"></textarea>
+          <textarea matInput formControlName="description"></textarea>
         </mat-form-field>
       </p>
 
       <p *ngIf="error" class="mat-error">
         {{error}}
       </p>
-      <button *ngIf="!disabled" mat-raised-button style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
+      <button mat-raised-button style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
 
     </mat-sidenav-content>
 

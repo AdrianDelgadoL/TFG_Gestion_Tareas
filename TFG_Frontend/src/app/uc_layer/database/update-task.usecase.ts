@@ -5,12 +5,12 @@ import {DatabaseService} from "../../back_layer/services/database/database.servi
 @Injectable({
   providedIn: "root"
 })
-export class UpdateTaskUseCase implements UseCaseTemplate<[string, any], void> {
+export class UpdateTaskUseCase implements UseCaseTemplate<[string, any], Promise<any>> {
   constructor(private db: DatabaseService) {
   }
 
-  execute(operator: [string, any]): void {
-    this.db.updateTask(operator[0], operator[1]).catch(err => {console.log("Error updating task " + err)});
+  async execute(operator: [string, {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] }]): Promise<any> {
+    await this.db.updateTask(operator[0], operator[1]);
   }
 
 }
