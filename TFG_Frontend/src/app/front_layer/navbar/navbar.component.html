@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row class="navbar">
-    <div>Gestor de tareas</div>
+    <div *ngIf="!userService.userId else noid">Gestor de tareas</div>
+    <ng-template #noid>
+      <a routerLink="/frontPage"><h1>Gestor de tareas</h1></a>
+    </ng-template>
     <div *ngIf="userService.userId">
       <a routerLink="/tasks">Lista de tareas</a>
       <a routerLink="">Calendario</a>

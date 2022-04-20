@@ -31,6 +31,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { TaskDetailComponent } from './front_layer/pages/task-detail/task-detail.component';
 import { DialogComponent } from './front_layer/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { FrontPageComponent } from './front_layer/pages/front-page/front-page.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     NavbarComponent,
     CreateTaskFormComponent,
     TaskDetailComponent,
-    DialogComponent
+    DialogComponent,
+    FrontPageComponent
   ],
     imports: [
         BrowserModule,

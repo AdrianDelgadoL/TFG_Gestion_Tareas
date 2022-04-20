@@ -1,5 +1,16 @@
 import {Injectable} from '@angular/core';
-import {addDoc, collection, deleteDoc, doc, Firestore, getDoc, getDocs, updateDoc} from "@angular/fire/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  query,
+  updateDoc,
+  where
+} from "@angular/fire/firestore";
 import {Task} from "../../../entities/task";
 import {TaskMapper} from "../../mappers/task-mapper";
 import {WorkerMapper} from "../../mappers/worker-mapper";
@@ -61,8 +72,22 @@ export class DatabaseService {
     return await deleteDoc(doc(this.db, "Tareas", id));
   }
 
-  // Workers data
+  async getTaskByDate(date: Date) {
+    let tasks: string[] = [];
+    console.log(date);
+    const q = query(collection(this.db, "Tareas"),
+      where("date", "<=", new Date(date.setDate(date.getDate()))), //Since Firestore saves dates at 00:00
+      where("date",">=", new Date(date.setDate(date.getDate()-1))) //To get today's tasks get tasks between yesterday and today
+    );
+    console.log(date)
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => {
+      tasks.push(doc.data()["name"]);
+    });
+    return tasks;
+  }
 
+  // Workers data
 
   async getWorkers() {
     let workerMapper = new WorkerMapper();

@@ -1,0 +1,77 @@
+<div>
+  <h1>Cierran próximamente</h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z2"> <!-- using mat table only for aesthetic coherence, since it can't work properly with the used array -->
+    <ng-container matColumnDef="today">
+      <th mat-header-cell *matHeaderCellDef>Hoy</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let todayTask of futureTasks[0]"> <!-- the first array contains today's tasks -->
+            {{todayTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="tomorrow">
+      <th mat-header-cell *matHeaderCellDef>Mañana</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let tomorrowTask of futureTasks[1]"> <!-- the second array contains tomorrow's tasks -->
+            {{tomorrowTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="afterTomorrow">
+      <th mat-header-cell *matHeaderCellDef>Pasado mañana</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let afterTomorrowTask of futureTasks[2]"> <!-- the third array contains the day after tomorrow's tasks -->
+            {{afterTomorrowTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<div>
+  <h1>Terminaron hace poco</h1>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z2"> <!-- using mat table only for aesthetic coherence, since it can't work properly with the used array -->
+    <ng-container matColumnDef="today">
+      <th mat-header-cell *matHeaderCellDef>Ayer</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let yesterdayTask of pastTasks[0]"> <!-- the first array contains yesterday's tasks -->
+            {{yesterdayTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="tomorrow">
+      <th mat-header-cell *matHeaderCellDef>Antes de ayer</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let beforeYesterdayTask of pastTasks[1]"> <!-- the second array contains the day before yesterday's tasks -->
+            {{beforeYesterdayTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="afterTomorrow">
+      <th mat-header-cell *matHeaderCellDef>Hace dos días</th>
+      <td mat-cell *matCellDef>
+        <ul>
+          <li *ngFor="let twoDaysBeforeTask of pastTasks[2]"> <!-- the third array contains the day before before yesterday's tasks -->
+            {{twoDaysBeforeTask}}
+          </li>
+        </ul>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
