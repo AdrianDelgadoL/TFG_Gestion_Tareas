@@ -27,6 +27,5 @@ export class FrontPageComponent implements OnInit{
     this.pastTasks.push(await this.getTasksByDateUC.execute(yesterday));
     this.pastTasks.push(await this.getTasksByDateUC.execute(yesterday));
     console.log(this.pastTasks);
-
   }
 }

@@ -58,10 +58,25 @@
         </mat-form-field>
       </p>
 
+      <div formArrayName="extraFields">
+        <div *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
+          <mat-form-field appearance="fill">
+            <mat-label>Nombre del campo</mat-label>
+            <input matInput formControlName="fieldName" id="{{'fieldName'+i}}">
+            <mat-error *ngIf="form.controls['extraFields'].errors"></mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>{{field}}</mat-label>
+            <input matInput formControlName="fieldValue" id="{{'fieldValue'+i}}">
+          </mat-form-field>
+        </div>
+
+      </div>
+
       <p *ngIf="error" class="mat-error">
         {{error}}
       </p>
-      <button mat-raised-button style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
+      <button mat-raised-button (click)="addField()" style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
 
     </mat-sidenav-content>
 
