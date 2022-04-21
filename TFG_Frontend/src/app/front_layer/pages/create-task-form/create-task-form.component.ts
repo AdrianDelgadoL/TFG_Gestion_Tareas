@@ -45,7 +45,6 @@ export class CreateTaskFormComponent implements OnInit {
 
   createTask() {
     if(this.form.valid && this.assignedWorkers.length > 0){
-      console.log("Create task")
       this.createTaskUC.execute({
         name: this.form.value.name,
         date: this.form.value.date,

@@ -9,6 +9,7 @@ export class TaskMapper {
       data["type"],
       data["verified"],
       workers,
+      data["description"],
       data["extraFields"],
     )
   }
