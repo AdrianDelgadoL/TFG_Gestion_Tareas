@@ -7,6 +7,7 @@ import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase"
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../dialog/dialog.component";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-task-list',
@@ -20,10 +21,11 @@ export class TaskListComponent implements OnInit {
     private deleteTaskUC: DeleteTaskUseCase,
     private dialog: MatDialog,
     private router: Router,
+    public userService: UserService
   ) { }
 
   taskList: MatTableDataSource<Task> = new MatTableDataSource();
-  displayedColumns = ["name", "date", "assignee", "edit", "delete"];  // Columns displayed in the task list
+  displayedColumns = ["name", "date", "assignee", "verify", "edit", "delete"];  // Columns displayed in the task list
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   ngOnInit(): void {

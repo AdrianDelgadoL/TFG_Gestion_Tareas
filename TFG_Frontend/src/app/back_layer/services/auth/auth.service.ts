@@ -12,14 +12,11 @@ export class AuthService {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  async getUser() {
+  getUser() {
     return this.auth.currentUser;
   }
 
-  signOut(): Promise<any> {
+  async signOut(): Promise<any> {
     return signOut(this.auth)
-      .catch(err => {
-        console.log("error in sign out " + err);
-      })
   }
 }

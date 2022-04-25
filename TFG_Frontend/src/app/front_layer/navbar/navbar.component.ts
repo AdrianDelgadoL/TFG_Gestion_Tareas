@@ -13,12 +13,8 @@ export class NavbarComponent {
               public userService: UserService,
               ) {}
 
-  signOut() {
-    this.userService.signoutUser().then(()=> {
-      console.log("loging out");
-      this.router.navigateByUrl("/login").catch(err => {
-        console.log("Error navigating " + err);
-      });
-    });
+  async signOut() {
+    await this.userService.signoutUser();
+    await this.router.navigateByUrl("/login");
   }
 }

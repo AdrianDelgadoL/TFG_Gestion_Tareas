@@ -74,12 +74,10 @@ export class DatabaseService {
 
   async getTaskByDate(date: Date) {
     let tasks: string[] = [];
-    console.log(date);
     const q = query(collection(this.db, "Tareas"),
       where("date", "<=", new Date(date.setDate(date.getDate()))), //Since Firestore saves dates at 00:00
       where("date",">=", new Date(date.setDate(date.getDate()-1))) //To get today's tasks get tasks between yesterday and today
     );
-    console.log(date)
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(doc => {
       tasks.push(doc.data()["name"]);
@@ -110,6 +108,22 @@ export class DatabaseService {
     else {
       return null;
     }
+  }
+
+  async getUserPermits(email: string) {
+    const q = query(collection(this.db, "Personal"), where("email", "==", email))
+    const querySnapshot = await getDocs(q);
+    let role = ""
+    querySnapshot.forEach(doc => { // Should only be 1 result
+      role = doc.data()["role"];
+    });
+    const docRef = doc(this.db, "Roles", role);
+    const docSnap = await getDoc(docRef);
+    if(docSnap.exists()) {
+      return docSnap.data()["permits"];
+    }
+    else
+      return null;
   }
 
   //Spec/Task type data
