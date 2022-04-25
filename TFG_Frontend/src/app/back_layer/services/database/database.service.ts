@@ -49,11 +49,11 @@ export class DatabaseService {
     await updateDoc(docRef, data);
   }
 
-  async getTasks() {
+  async getTasks(userid?: string) {
     let taskMapper = new TaskMapper();
     let tasks: Task[] = [];
 
-    const querySnapshot = await getDocs(collection(this.db, "Tareas"));
+    const querySnapshot = userid ? await getDocs(query(collection(this.db, "Tareas"), where("assignedWorkers", "array-contains", userid))) : await getDocs(collection(this.db, "Tareas"));
     querySnapshot.forEach(doc => {
       let workers: Worker[] = []
       doc.data()["assignedWorkers"].forEach((data: string) => {
@@ -72,11 +72,12 @@ export class DatabaseService {
     return await deleteDoc(doc(this.db, "Tareas", id));
   }
 
-  async getTaskByDate(date: Date) {
+  async getTaskByDate(date: Date, userid?: string) {
     let tasks: string[] = [];
     const q = query(collection(this.db, "Tareas"),
       where("date", "<=", new Date(date.setDate(date.getDate()))), //Since Firestore saves dates at 00:00
-      where("date",">=", new Date(date.setDate(date.getDate()-1))) //To get today's tasks get tasks between yesterday and today
+      where("date",">=", new Date(date.setDate(date.getDate()-1))), //To get today's tasks get tasks between yesterday and today
+      // where("assignedWorker", "==", userid) TODO: Implementar esto
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(doc => {
