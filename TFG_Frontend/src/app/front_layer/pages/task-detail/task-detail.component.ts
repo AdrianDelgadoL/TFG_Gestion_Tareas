@@ -97,7 +97,7 @@ export class TaskDetailComponent implements OnInit {
     this.extraFields.push(this.createField());
   }
 
-  private createField() { //TODO: añadir botón de eliminar campo
+  private createField() {
     return this.fb.group({ //TODO: mirar si han de ser required
       fieldName: [''],
       fieldValue: ['']
@@ -108,4 +108,7 @@ export class TaskDetailComponent implements OnInit {
     return this.fb.group(data);
   }
 
+  removeField(i: number) {
+    this.extraFields.removeAt(i);
+  }
 }

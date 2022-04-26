@@ -6,6 +6,7 @@ import {GetSpecsUseCase} from "../../../uc_layer/database/get-specs.usecase";
 import {Spec} from "../../../entities/spec";
 import {CreateTaskUseCase} from "../../../uc_layer/database/create-task-usecase";
 import {Router} from "@angular/router";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-create-task-form',
@@ -15,6 +16,7 @@ import {Router} from "@angular/router";
 export class CreateTaskFormComponent implements OnInit {
 
   constructor(
+    public userService: UserService,
     private getWorkersUC: GetWorkersUseCase,
     private getSpecsUC: GetSpecsUseCase,
     private createTaskUC: CreateTaskUseCase,
@@ -76,5 +78,9 @@ export class CreateTaskFormComponent implements OnInit {
       fieldName: [''],
       fieldValue: ['']
     })
+  }
+
+  removeField(i: number) {
+    this.extraFields.removeAt(i);
   }
 }

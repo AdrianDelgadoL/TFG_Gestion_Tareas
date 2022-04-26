@@ -1,4 +1,4 @@
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- used for mat-icon -->
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
     <mat-sidenav #sidenav mode="over" position="end" (closed)="sidenavDirty = true">
@@ -64,17 +64,19 @@
         </mat-form-field>
       </p>
 
+
       <div formArrayName="extraFields">
-        <div *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
+        <div class="extraField" *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
           <mat-form-field appearance="fill">
             <mat-label>Nombre del campo</mat-label>
             <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldName" id="{{'fieldName'+i}}">
             <mat-error *ngIf="form.controls['extraFields'].errors"></mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>{{field}}</mat-label>
+            <mat-label>Valor del campo</mat-label>
             <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
+          <button *ngIf="userService.userPermits.includes('MODIFY')" (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
         </div>
       </div>
 

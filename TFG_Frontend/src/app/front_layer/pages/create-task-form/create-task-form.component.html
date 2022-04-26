@@ -1,4 +1,4 @@
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- used for mat-icon -->
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
     <mat-sidenav #sidenav mode="over" position="end" (closed)="sidenavDirty = true">
@@ -66,9 +66,10 @@
             <mat-error *ngIf="form.controls['extraFields'].errors"></mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
-            <mat-label>{{field}}</mat-label>
+            <mat-label>Valor del campo</mat-label>
             <input matInput formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
+          <button (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
         </div>
 
       </div>
