@@ -9,6 +9,7 @@ import {Spec} from "../../../entities/spec";
 import {GetTaskByIdUseCase} from "../../../uc_layer/database/get-task-by-id.usecase";
 import {UpdateTaskUseCase} from "../../../uc_layer/database/update-task.usecase";
 import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase";
+import {UserService} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-task-detail',
@@ -18,6 +19,7 @@ import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase"
 export class TaskDetailComponent implements OnInit {
 
   constructor(
+    public userService: UserService,
     private getWorkersUC: GetWorkersUseCase,
     private getSpecsUC: GetSpecsUseCase,
     private getTaskUC: GetTaskByIdUseCase,

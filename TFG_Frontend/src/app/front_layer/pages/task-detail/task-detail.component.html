@@ -9,15 +9,20 @@
 
     <mat-sidenav-content class="sidenav-content" [formGroup]="form">
 
-      <div class="button">
+      <div *ngIf="userService.userPermits.includes('MODIFY') else noPermits" class="button">
         <button mat-raised-button type="button" (click)="updateTask()">Terminar</button>
-        <button mat-raised-button type="button" color="warn" (click)="deleteTask()">Eliminar</button>
+        <button mat-raised-button  type="button" color="warn" (click)="deleteTask()">Eliminar</button>
       </div>
+      <ng-template #noPermits>
+        <div class="button">
+          <button mat-raised-button type="button" routerLink="/tasks">Terminar</button>
+        </div>
+      </ng-template>
 
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Nombre de tarea</mat-label>
-          <input matInput formControlName="name" required>
+          <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="name" required>
           <mat-error *ngIf="form.controls['name'].errors">Introduce un nombre de tarea</mat-error>
         </mat-form-field>
 
@@ -25,7 +30,7 @@
         <mat-form-field>
           <mat-label>Empleados asignados</mat-label>
           <input readonly [value]="assignedWorkers" matInput>
-          <button mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
+          <button *ngIf="userService.userPermits.includes('MODIFY')" mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
           <mat-error *ngIf="sidenavDirty && assignedWorkers.length <= 0">Selecciona trabajadores para la tarea</mat-error>
         </mat-form-field>
       </p>
@@ -33,7 +38,7 @@
       <p>
         <mat-form-field appearance="fill">
           <mat-label>Tipo de tarea</mat-label>
-          <mat-select formControlName="type">
+          <mat-select [disabled]="!userService.userPermits.includes('MODIFY')" formControlName="type"> <!-- throws a warning angular but the alternative doesn't work properly -->
             <mat-option *ngFor="let spec of specs" [value]="spec.id">
               {{spec.name}}
             </mat-option>
@@ -45,7 +50,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Elige una fecha</mat-label>
-          <input matInput formControlName="date" [matDatepicker]="picker" required>
+          <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="date" [matDatepicker]="picker" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="form.controls['date'].errors">Elige una fecha</mat-error>
@@ -55,7 +60,7 @@
       <p class="description">
         <mat-form-field style="width: 100%" appearance="outline" >
           <mat-label>Descripción</mat-label>
-          <textarea matInput formControlName="description"></textarea>
+          <textarea matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="description"></textarea>
         </mat-form-field>
       </p>
 
@@ -63,12 +68,12 @@
         <div *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
           <mat-form-field appearance="fill">
             <mat-label>Nombre del campo</mat-label>
-            <input matInput formControlName="fieldName" id="{{'fieldName'+i}}">
+            <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldName" id="{{'fieldName'+i}}">
             <mat-error *ngIf="form.controls['extraFields'].errors"></mat-error>
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>{{field}}</mat-label>
-            <input matInput formControlName="fieldValue" id="{{'fieldValue'+i}}">
+            <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
         </div>
       </div>
@@ -77,7 +82,7 @@
       <p *ngIf="error" class="mat-error">
         {{error}}
       </p>
-      <button mat-raised-button (click)="addField()" style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
+      <button mat-raised-button *ngIf="userService.userPermits.includes('MODIFY')" (click)="addField()" style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
 
     </mat-sidenav-content>
 

@@ -74,11 +74,16 @@ export class DatabaseService {
 
   async getTaskByDate(date: Date, userid?: string) {
     let tasks: string[] = [];
-    const q = query(collection(this.db, "Tareas"),
+    // If userid is passed means the user has no permission to see all tasks, so take only the user's tasks.
+    const q = userid? query(collection(this.db, "Tareas"),
       where("date", "<=", new Date(date.setDate(date.getDate()))), //Since Firestore saves dates at 00:00
       where("date",">=", new Date(date.setDate(date.getDate()-1))), //To get today's tasks get tasks between yesterday and today
-      // where("assignedWorker", "==", userid) TODO: Implementar esto
+      where("assignedWorker", "array-contains", userid))
+      : query(collection(this.db, "Tareas"),
+      where("date", "<=", new Date(date.setDate(date.getDate()))),
+      where("date",">=", new Date(date.setDate(date.getDate()-1))),
     );
+
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach(doc => {
       tasks.push(doc.data()["name"]);
@@ -111,20 +116,20 @@ export class DatabaseService {
     }
   }
 
-  async getUserPermits(email: string) {
-    const q = query(collection(this.db, "Personal"), where("email", "==", email))
-    const querySnapshot = await getDocs(q);
-    let role = ""
-    querySnapshot.forEach(doc => { // Should only be 1 result
-      role = doc.data()["role"];
-    });
-    const docRef = doc(this.db, "Roles", role);
-    const docSnap = await getDoc(docRef);
+  async getUserPermits(userid: string) {
+    let docRef = await doc(this.db, "Personal", userid);
+
+    let docSnap = await getDoc(docRef);
+    let role = "";
     if(docSnap.exists()) {
-      return docSnap.data()["permits"];
+      role = docSnap.data()["role"];
+      docRef = await doc(this.db, "Roles", role);
+      docSnap = await getDoc(docRef);
+      if(docSnap.exists()) {
+        return docSnap.data()["permits"];
+      }
     }
-    else
-      return null;
+    return null;
   }
 
   //Spec/Task type data

@@ -4,7 +4,7 @@
     <mat-label>Filtrar tareas por nombre</mat-label>
     <input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
-  <button routerLink="/createTask" mat-raised-button class="create-button"> Crear nueva tarea</button>
+  <button routerLink="/createTask" *ngIf="userService.userPermits.includes('WRITE')" mat-raised-button class="create-button">Crear nueva tarea</button>
 </div>
 
 <!-- Mat table that includes sorting and filtering -->
@@ -30,16 +30,19 @@
   <ng-container matColumnDef="verify">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let j = index"> <!-- TODO: Añadir verificar tarea -->
-      <button mat-button>
+      <button *ngIf="userService.userPermits.includes('VERIFY')" mat-button>
         <b>Marcar como completa</b>
       </button>
     </td>
   </ng-container>
-  <ng-container  matColumnDef="edit">
+  <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let j = index;">
-      <button *ngIf="userService.userPermits.includes('MODIFY')" mat-button (click)="navigateToDetail(j)">
-        <b>Editar</b>
+      <button mat-button (click)="navigateToDetail(j)">
+        <div *ngIf="userService.userPermits.includes('MODIFY') else noPermits">
+          <b>Editar</b>
+        </div>
+        <ng-template #noPermits><b>Ver detalles</b></ng-template>
       </button>
     </td>
   </ng-container>
