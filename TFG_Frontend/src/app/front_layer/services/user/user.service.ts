@@ -25,7 +25,6 @@ export class UserService {
     const user = await this.signinUC.execute([email, password]);
     this.userPermits = await this.getUserPermitsUC.execute(user.user.uid);
     this.userId = user.user.uid;
-    console.log(this.userPermits);
     return user.user.uid;
   }
 }

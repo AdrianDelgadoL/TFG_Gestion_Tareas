@@ -7,6 +7,7 @@ import {LoginGuard} from "./front_layer/guards/login/login.guard";
 import {CreateTaskFormComponent} from "./front_layer/pages/create-task-form/create-task-form.component";
 import {TaskDetailComponent} from "./front_layer/pages/task-detail/task-detail.component";
 import {FrontPageComponent} from "./front_layer/pages/front-page/front-page.component";
+import {WriteGuard} from "./front_layer/guards/role-guards/write-guard/write.guard";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
@@ -33,7 +34,7 @@ const routes: Routes = [
   {
     path: 'createTask',
     component: CreateTaskFormComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, WriteGuard]
   }
 ];
 
