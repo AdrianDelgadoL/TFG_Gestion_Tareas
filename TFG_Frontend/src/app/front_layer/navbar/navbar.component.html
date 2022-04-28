@@ -7,7 +7,7 @@
     <div *ngIf="userService.userId">
       <a routerLink="/tasks">Lista de tareas</a>
       <a routerLink="">Calendario</a>
-      <span *ngIf="userService.userPermits && userService.userPermits.includes('CONTACT')"> <a routerLink="">Lista de personal</a> </span>
+      <span *ngIf="userService.userPermits && userService.userPermits.includes('CONTACT')"> <a routerLink="/userList">Lista de personal</a> </span>
 
     </div>
     <div class="spacer"></div>

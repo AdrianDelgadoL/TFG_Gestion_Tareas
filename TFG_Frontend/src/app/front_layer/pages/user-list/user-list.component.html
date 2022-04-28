@@ -1,0 +1,49 @@
+<!-- Filter search field -->
+<div class="inputs">
+  <mat-form-field appearance="standard">
+    <mat-label>Filtrar trabajadores</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <button routerLink="" *ngIf="userService.userPermits.includes('WRITE')" mat-raised-button class="create-button">Crear nuevo usuario</button>
+</div>
+
+
+<table mat-table [dataSource]="userList" matSort matSortDirection="desc" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Nombre</th>
+    <td mat-cell *matCellDef="let worker">{{worker.name}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="surname">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Apellidos</th>
+    <td mat-cell *matCellDef="let worker">{{worker.surname}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="available"> <!-- TODO: mirar si ha de ser available o poner tasks que esta haciendo -->
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Disponibilidad</th>
+    <td mat-cell *matCellDef="let worker" >{{worker.available? "Disponible": "No disponible"}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="spec">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Especialidad</th>
+    <td mat-cell *matCellDef="let worker">{{worker.spec}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="contact">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef>
+      <button mat-flat-button>
+        <b>Contactar</b>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+
+  <!-- In case no data matches the filter, this row is shown instead -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No se han encontrado trabajadores para ese filtro</td>
+  </tr>
+</table>

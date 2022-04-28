@@ -8,6 +8,8 @@ import {CreateTaskFormComponent} from "./front_layer/pages/create-task-form/crea
 import {TaskDetailComponent} from "./front_layer/pages/task-detail/task-detail.component";
 import {FrontPageComponent} from "./front_layer/pages/front-page/front-page.component";
 import {WriteGuard} from "./front_layer/guards/role-guards/write-guard/write.guard";
+import {UserListComponent} from "./front_layer/pages/user-list/user-list.component";
+import {ContactGuard} from "./front_layer/guards/role-guards/contact-guard/contact.guard";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
@@ -35,6 +37,11 @@ const routes: Routes = [
     path: 'createTask',
     component: CreateTaskFormComponent,
     canActivate: [AuthGuard, WriteGuard]
+  },
+  {
+    path: 'userList',
+    component: UserListComponent,
+    canActivate: [AuthGuard, ContactGuard]
   }
 ];
 

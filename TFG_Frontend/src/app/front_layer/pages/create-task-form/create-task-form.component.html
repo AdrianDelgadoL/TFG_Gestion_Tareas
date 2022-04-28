@@ -34,7 +34,7 @@
           <mat-label>Tipo de tarea</mat-label>
           <mat-select formControlName="type" required>
             <mat-option *ngFor="let spec of specs" [value]="spec.id">
-              {{spec.name}}
+              {{spec.id}}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="form.controls['type'].errors">Elige un tipo de tarea</mat-error>

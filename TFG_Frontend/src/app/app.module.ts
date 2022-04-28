@@ -32,6 +32,7 @@ import { TaskDetailComponent } from './front_layer/pages/task-detail/task-detail
 import { DialogComponent } from './front_layer/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { FrontPageComponent } from './front_layer/pages/front-page/front-page.component';
+import { UserListComponent } from './front_layer/pages/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FrontPageComponent } from './front_layer/pages/front-page/front-page.co
     CreateTaskFormComponent,
     TaskDetailComponent,
     DialogComponent,
-    FrontPageComponent
+    FrontPageComponent,
+    UserListComponent
   ],
     imports: [
         BrowserModule,
