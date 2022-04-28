@@ -29,9 +29,9 @@
   </ng-container>
   <ng-container matColumnDef="verify">
     <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let j = index"> <!-- TODO: Añadir verificar tarea -->
-      <button *ngIf="userService.userPermits.includes('VERIFY')" mat-button>
-        <b>Marcar como completa</b>
+    <td mat-cell *matCellDef="let j = index">
+      <button (click)="markAsVerified(j)" *ngIf="userService.userPermits.includes('VERIFY') && !taskList.data[j].verified" mat-button>
+        <b>Verificar tarea</b>
       </button>
     </td>
   </ng-container>

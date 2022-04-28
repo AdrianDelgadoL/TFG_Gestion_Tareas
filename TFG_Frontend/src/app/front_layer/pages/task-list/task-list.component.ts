@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../dialog/dialog.component";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user/user.service";
+import {VerifyTaskUseCase} from "../../../uc_layer/database/verify-task.usecase";
 
 @Component({
   selector: 'app-task-list',
@@ -19,6 +20,7 @@ export class TaskListComponent implements OnInit {
   constructor(
     private getTasksUC: GetTasksUseCase,
     private deleteTaskUC: DeleteTaskUseCase,
+    private verifyTaskUC: VerifyTaskUseCase,
     private dialog: MatDialog,
     private router: Router,
     public userService: UserService
@@ -62,4 +64,8 @@ export class TaskListComponent implements OnInit {
     await this.router.navigateByUrl("/tasks/" + this.taskList.data[id]["id"]);
   }
 
+  async markAsVerified(i: number) {
+    await this.verifyTaskUC.execute(this.taskList.data[i]["id"]);
+    this.taskList.data[i].verified = true;
+  }
 }

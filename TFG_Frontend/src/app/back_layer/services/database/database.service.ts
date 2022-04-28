@@ -72,6 +72,11 @@ export class DatabaseService {
     return await deleteDoc(doc(this.db, "Tareas", id));
   }
 
+  async verifyTask(id: string) {
+    const docRef = doc(this.db, "Tareas", id);
+    await updateDoc(docRef, {verified: true});
+  }
+
   async getTaskByDate(date: Date, userid?: string) {
     let tasks: string[] = [];
     // If userid is passed means the user has no permission to see all tasks, so take only the user's tasks.
