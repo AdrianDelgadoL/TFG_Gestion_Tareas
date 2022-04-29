@@ -10,12 +10,18 @@ import {FrontPageComponent} from "./front_layer/pages/front-page/front-page.comp
 import {WriteGuard} from "./front_layer/guards/role-guards/write-guard/write.guard";
 import {UserListComponent} from "./front_layer/pages/user-list/user-list.component";
 import {ContactGuard} from "./front_layer/guards/role-guards/contact-guard/contact.guard";
+import {RestorePasswordComponent} from "./front_layer/pages/restore-password/restore-password.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'recover',
+    component: RestorePasswordComponent,
     canActivate: [LoginGuard]
   },
   {

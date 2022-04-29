@@ -33,6 +33,7 @@ import { DialogComponent } from './front_layer/dialog/dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { FrontPageComponent } from './front_layer/pages/front-page/front-page.component';
 import { UserListComponent } from './front_layer/pages/user-list/user-list.component';
+import { RestorePasswordComponent } from './front_layer/pages/restore-password/restore-password.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { UserListComponent } from './front_layer/pages/user-list/user-list.compo
     TaskDetailComponent,
     DialogComponent,
     FrontPageComponent,
-    UserListComponent
+    UserListComponent,
+    RestorePasswordComponent
   ],
     imports: [
         BrowserModule,
