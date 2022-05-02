@@ -1,5 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Auth, sendPasswordResetEmail, signInWithEmailAndPassword, signOut} from "@angular/fire/auth";
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut
+} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +14,8 @@ export class AuthService {
 
   constructor(private auth: Auth) { }
 
-  async login(email: string, password: string) {
-    await signInWithEmailAndPassword(this.auth, email, password);
+  login(email: string, password: string) {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
   getUser() {
@@ -22,5 +28,9 @@ export class AuthService {
 
   async recoverPassword(email: string) {
     await sendPasswordResetEmail(this.auth, email);
+  }
+
+  registerUser(email: string, password: string) {
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 }

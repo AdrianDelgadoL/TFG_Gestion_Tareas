@@ -17,6 +17,8 @@ import {WorkerMapper} from "../../mappers/worker-mapper";
 import {Worker} from "../../../entities/worker";
 import {SpecMapper} from "../../mappers/spec-mapper";
 import {Spec} from "../../../entities/spec";
+import {RoleMapper} from "../../mappers/role-mapper";
+import {Role} from "../../../entities/role";
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +99,10 @@ export class DatabaseService {
   }
 
   // Workers data
+  async createWorker(data: any) {
+    const docRef = await addDoc(collection(this.db, "Personal"), data);
+    console.log(docRef);
+  }
 
   async getWorkers() {
     let workerMapper = new WorkerMapper();
@@ -147,6 +153,18 @@ export class DatabaseService {
       specs.push(specMapper.deserialize(doc.id));
     })
     return specs;
+  }
+
+  // Role data
+
+  async getRoles() {
+    let roleMapper = new RoleMapper();
+    let roles: Role[] = [];
+    const querySnapshot = await getDocs(collection(this.db, "Roles"));
+    querySnapshot.forEach(doc => {
+      roles.push(roleMapper.deserialize(doc.id, doc.data()));
+    });
+    return roles;
   }
 
 }

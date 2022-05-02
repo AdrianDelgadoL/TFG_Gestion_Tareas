@@ -11,6 +11,7 @@ import {WriteGuard} from "./front_layer/guards/role-guards/write-guard/write.gua
 import {UserListComponent} from "./front_layer/pages/user-list/user-list.component";
 import {ContactGuard} from "./front_layer/guards/role-guards/contact-guard/contact.guard";
 import {RestorePasswordComponent} from "./front_layer/pages/restore-password/restore-password.component";
+import {CreateUserFormComponent} from "./front_layer/pages/create-user-form/create-user-form.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
@@ -45,8 +46,13 @@ const routes: Routes = [
     canActivate: [AuthGuard, WriteGuard]
   },
   {
-    path: 'userList',
+    path: 'users',
     component: UserListComponent,
+    canActivate: [AuthGuard, ContactGuard]
+  },
+  {
+    path: 'createUser',
+    component: CreateUserFormComponent,
     canActivate: [AuthGuard, ContactGuard]
   }
 ];

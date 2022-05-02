@@ -1,0 +1,42 @@
+.button {
+  align-self: end;
+  padding-right: 10rem;
+  padding-top: 0.5rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.workers-button {
+  background-color: #cbced1;
+}
+
+.spacer {
+  padding: 200px;
+}
+
+p {
+  margin-left: 20%;
+  align-self: start;
+}
+
+mat-form-field {
+  justify-content: space-between;
+}
+
+.description {
+  width: 80%;
+  align-self: center;
+  margin-left: 0;
+}
+
+.mat-error {
+  align-self: center;
+}

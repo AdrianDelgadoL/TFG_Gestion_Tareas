@@ -18,7 +18,6 @@ export class UserListComponent implements OnInit {
   userList: MatTableDataSource<Worker> = new MatTableDataSource()
   displayedColumns: string[] = ["name", "surname", "available", "spec", "contact"];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
-  btnColor: string = "green";
 
   ngOnInit(): void {
     this.getWorkersUC.execute(null).then(r => {

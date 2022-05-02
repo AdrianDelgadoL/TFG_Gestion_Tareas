@@ -4,7 +4,7 @@
     <mat-label>Filtrar trabajadores</mat-label>
     <input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
-  <button routerLink="" *ngIf="userService.userPermits.includes('WRITE')" mat-raised-button class="create-button">Crear nuevo usuario</button>
+  <button routerLink="/createUser" *ngIf="userService.userPermits.includes('WRITE')" mat-raised-button class="create-button">Crear nuevo usuario</button>
 </div>
 
 
