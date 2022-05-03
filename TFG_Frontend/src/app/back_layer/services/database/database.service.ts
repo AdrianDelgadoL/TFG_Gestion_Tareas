@@ -7,7 +7,7 @@ import {
   Firestore,
   getDoc,
   getDocs,
-  query,
+  query, setDoc,
   updateDoc,
   where
 } from "@angular/fire/firestore";
@@ -99,9 +99,8 @@ export class DatabaseService {
   }
 
   // Workers data
-  async createWorker(data: any) {
-    const docRef = await addDoc(collection(this.db, "Personal"), data);
-    console.log(docRef);
+  async createWorker(id: string, data: {email: string, speciality: string, name: string, surname: string, available: boolean, role: string}) {
+    await setDoc(doc(this.db, "Personal", id), data);
   }
 
   async getWorkers() {
