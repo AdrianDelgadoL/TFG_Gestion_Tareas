@@ -10,6 +10,8 @@ import {GetTaskByIdUseCase} from "../../../uc_layer/database/get-task-by-id.usec
 import {UpdateTaskUseCase} from "../../../uc_layer/database/update-task.usecase";
 import {DeleteTaskUseCase} from "../../../uc_layer/database/delete-task.usecase";
 import {UserService} from "../../services/user/user.service";
+import {DialogComponent} from "../../dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-task-detail',
@@ -26,6 +28,7 @@ export class TaskDetailComponent implements OnInit {
     private updateTaskUC: UpdateTaskUseCase,
     private deleteTaskUC: DeleteTaskUseCase,
     private router: Router,
+    private dialog: MatDialog,
     private fb: FormBuilder
   ) { }
   form: FormGroup = this.fb.group({
@@ -83,9 +86,21 @@ export class TaskDetailComponent implements OnInit {
     await this.router.navigateByUrl("/tasks");
   }
 
-  async deleteTask() {
-    await this.deleteTaskUC.execute(this.router.url.split('/')[2]);
-    await this.router.navigateByUrl("/tasks");
+  openDialog() {
+    this.dialog.open(DialogComponent, {
+      width: "400px",
+      data: {
+        title: "Eliminar tarea",
+        message: "¿Seguro que quieres eliminar esta tarea?",
+        confirmText: "Sí",
+        cancelText: "No"
+      }
+    }).afterClosed().subscribe(async (result: any) => {
+      if (result) {
+        await this.deleteTaskUC.execute(this.router.url.split('/')[2]);
+        await this.router.navigateByUrl("/tasks");
+      }
+    });
   }
 
   get extraFields(): FormArray {
