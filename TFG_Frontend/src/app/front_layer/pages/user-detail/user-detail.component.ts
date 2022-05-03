@@ -10,6 +10,8 @@ import {GetRolesUseCase} from "../../../uc_layer/database/get-roles.usecase";
 import {UserService} from "../../services/user/user.service";
 import {DeleteWorkerUseCase} from "../../../uc_layer/database/delete-worker.usecase";
 import {UpdateWorkerUseCase} from "../../../uc_layer/database/update-worker.usecase";
+import {DialogComponent} from "../../dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-user-detail',
@@ -20,6 +22,7 @@ export class UserDetailComponent implements OnInit {
 
   constructor(private router: Router,
               private fb: FormBuilder,
+              private dialog: MatDialog,
               private getWorkerUC: GetWorkerByIdUseCase,
               private getSpecsUC: GetSpecsUseCase,
               private getRolesUC: GetRolesUseCase,
@@ -74,8 +77,21 @@ export class UserDetailComponent implements OnInit {
     await this.router.navigateByUrl("/users");
   }
 
-  async deleteUser() {
-    await this.deleteWorkerUC.execute(this.id);
-    await this.router.navigateByUrl("/users");
+  openDialog() {
+    this.dialog.open(DialogComponent, {
+      width: "400px",
+      data: {
+        title: "Eliminar tarea",
+        message: "¿Seguro que quieres eliminar este usuario?",
+        confirmText: "Sí",
+        cancelText: "No"
+      }
+    }).afterClosed().subscribe(async result => {
+      if (result) {
+        await this.deleteWorkerUC.execute(this.id);
+        await this.router.navigateByUrl("/users");
+      }
+    });
   }
+
 }

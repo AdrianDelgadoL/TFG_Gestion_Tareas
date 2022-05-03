@@ -6,6 +6,8 @@ import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../services/user/user.service";
 import {Router} from "@angular/router";
 import {DeleteWorkerUseCase} from "../../../uc_layer/database/delete-worker.usecase";
+import {DialogComponent} from "../../dialog/dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-user-list',
@@ -17,6 +19,7 @@ export class UserListComponent implements OnInit {
   constructor(private getWorkersUC: GetWorkersUseCase,
               private deleteWorkerUC: DeleteWorkerUseCase,
               public userService: UserService,
+              private dialog: MatDialog,
               private router: Router) { }
 
   userList: MatTableDataSource<Worker> = new MatTableDataSource()
@@ -43,12 +46,21 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  async deleteUser(j: number) {
-    try {
-      await this.deleteWorkerUC.execute(this.userList.data[j].id); //TODO: Añadir dialogo confirmacion
-      this.userList._updateChangeSubscription();
-    } catch (e) {
-      console.log(e);
-    }
+  openDialog(id: number) {
+    this.dialog.open(DialogComponent, {
+      width: "400px",
+      data: {
+        title: "Eliminar tarea",
+        message: "¿Seguro que quieres eliminar este usuario?",
+        confirmText: "Sí",
+        cancelText: "No"
+      }
+    }).afterClosed().subscribe(async result => {
+      if (result) {
+        await this.deleteWorkerUC.execute(this.userList.data[id]["id"]);
+        this.userList.data.splice(id, 1);
+        this.userList._updateChangeSubscription(); //Refresh datasource
+      }
+    });
   }
 }
