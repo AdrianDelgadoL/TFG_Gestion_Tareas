@@ -14,7 +14,7 @@ import {UserService} from "../../services/user/user.service";
 @Component({
   selector: 'app-task-detail',
   templateUrl: './task-detail.component.html',
-  styleUrls: ['./task-detail.component.scss']
+  styleUrls: ['../create-task-form/create-task-form.component.scss'] // use the same scss since its almost identical page
 })
 export class TaskDetailComponent implements OnInit {
 
@@ -50,7 +50,6 @@ export class TaskDetailComponent implements OnInit {
     this.task = await this.getTaskUC.execute(this.router.url.split('/')[2])
     // split the url by / in order to get the :id part
     if (this.task) {
-      console.log(this.task);
       this.verified = this.task.verified;
       this.form.patchValue({
         name: this.task.name,

@@ -1,0 +1,59 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- used for mat-icon -->
+<div class="container">
+  <div *ngIf="userService.userPermits.includes('WRITE')" class="button">
+    <button mat-raised-button type="button" (click)="updateUser()">Terminar</button>
+    <button mat-raised-button type="button" color="warn" (click)="deleteUser()">Eliminar</button>
+  </div>
+  <form [formGroup]="form" >
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre" formControlName="name" required>
+        <mat-error *ngIf="form.controls['name'].errors">Introduce un nombre</mat-error>
+      </mat-form-field>
+
+      <span class="spacer"></span>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellidos</mat-label>
+        <input matInput placeholder="Apellidos" formControlName="surname" required>
+        <mat-error *ngIf="form.controls['surname'].errors">Introduce un apellido</mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Especialidad</mat-label>
+        <mat-select formControlName="spec" required>
+          <mat-option *ngFor="let spec of specs" [value]="spec.id">
+            {{spec.id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['spec'].errors">Elige un tipo de tarea</mat-error>
+      </mat-form-field>
+
+      <span class="spacer"></span>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option *ngFor="let role of roles" [value]="role.id">
+            {{role.id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['role'].errors">Elige un rol</mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="form.controls['email'].errors">Introduce un email válido</mat-error>
+      </mat-form-field>
+    </p>
+    <p *ngIf="error" class="mat-error">
+      {{error}}
+    </p>
+  </form>
+
+</div>

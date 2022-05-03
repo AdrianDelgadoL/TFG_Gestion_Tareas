@@ -127,6 +127,11 @@ export class DatabaseService {
     }
   }
 
+  async updateWorker(id: string, data: any) {
+    const docRef = doc(this.db, "Personal", id);
+    await updateDoc(docRef, data);
+  }
+
   async getUserPermits(userid: string) {
     let docRef = await doc(this.db, "Personal", userid);
 
@@ -141,6 +146,10 @@ export class DatabaseService {
       }
     }
     return null;
+  }
+
+  async deleteWorker(id: string) {
+    await deleteDoc(doc(this.db, "Personal", id));
   }
 
   //Spec/Task type data

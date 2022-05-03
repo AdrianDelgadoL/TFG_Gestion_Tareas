@@ -35,6 +35,7 @@ import { FrontPageComponent } from './front_layer/pages/front-page/front-page.co
 import { UserListComponent } from './front_layer/pages/user-list/user-list.component';
 import { RestorePasswordComponent } from './front_layer/pages/restore-password/restore-password.component';
 import { CreateUserFormComponent } from './front_layer/pages/create-user-form/create-user-form.component';
+import { UserDetailComponent } from './front_layer/pages/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { CreateUserFormComponent } from './front_layer/pages/create-user-form/cr
     FrontPageComponent,
     UserListComponent,
     RestorePasswordComponent,
-    CreateUserFormComponent
+    CreateUserFormComponent,
+    UserDetailComponent
   ],
     imports: [
         BrowserModule,

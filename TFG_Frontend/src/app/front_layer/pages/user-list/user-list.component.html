@@ -29,11 +29,32 @@
     <td mat-cell *matCellDef="let worker">{{worker.spec}}</td>
   </ng-container>
 
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let j = index">
+      <button mat-button (click)="navigateToDetail(j)">
+        <div *ngIf="userService.userPermits.includes('MODIFY') else noPermits">
+          <b>Editar</b>
+        </div>
+        <ng-template #noPermits><b>Ver detalles</b></ng-template>
+      </button>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="contact">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef>
       <button mat-flat-button>
         <b>Contactar</b>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let j = index">
+      <button mat-raised-button color="warn" (click)="deleteUser(j)">
+        <b>Eliminar</b>
       </button>
     </td>
   </ng-container>

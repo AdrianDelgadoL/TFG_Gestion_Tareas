@@ -30,9 +30,14 @@ export class CreateUserFormComponent implements OnInit {
   });
 
   specs: Spec[] = [];
-  roles: Role[] = []
+  roles: Role[] = [];
 
   error?: string;
+
+  async ngOnInit() {
+    this.specs = await this.getSpecsUC.execute(null);
+    this.roles = await this.getRolesUC.execute(null);
+  }
 
   async createUser() {
     if(this.form.valid) {
@@ -50,8 +55,4 @@ export class CreateUserFormComponent implements OnInit {
     }
   }
 
-  async ngOnInit() {
-    this.specs = await this.getSpecsUC.execute(null);
-    this.roles = await this.getRolesUC.execute(null);
-  }
 }

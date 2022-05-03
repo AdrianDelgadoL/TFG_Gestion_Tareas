@@ -2,7 +2,7 @@ export class Worker {
   id: string = "";
   name: string = "";
   surname: string = "";
-  spec: string[] = [];
+  spec: string = "";
   available: boolean = true;
   role: string = "";
   email: string = "";
@@ -11,7 +11,7 @@ export class Worker {
     id: string,
     name: string,
     surname: string,
-    spec: string[],
+    spec: string,
     available: boolean,
     role: string,
     email: string,
