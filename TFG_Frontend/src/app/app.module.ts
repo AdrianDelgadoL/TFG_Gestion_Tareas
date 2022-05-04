@@ -36,6 +36,13 @@ import { UserListComponent } from './front_layer/pages/user-list/user-list.compo
 import { RestorePasswordComponent } from './front_layer/pages/restore-password/restore-password.component';
 import { CreateUserFormComponent } from './front_layer/pages/create-user-form/create-user-form.component';
 import { UserDetailComponent } from './front_layer/pages/user-detail/user-detail.component';
+import { CalendarComponent } from './front_layer/pages/calendar/calendar.component';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+import {registerLocaleData} from "@angular/common";
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs)
 
 @NgModule({
   declarations: [
@@ -50,7 +57,8 @@ import { UserDetailComponent } from './front_layer/pages/user-detail/user-detail
     UserListComponent,
     RestorePasswordComponent,
     CreateUserFormComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    CalendarComponent
   ],
     imports: [
         BrowserModule,
@@ -77,6 +85,10 @@ import { UserDetailComponent } from './front_layer/pages/user-detail/user-detail
         MatCheckboxModule,
         MatIconModule,
         MatDialogModule,
+        CalendarModule.forRoot({
+          provide: DateAdapter,
+          useFactory: adapterFactory
+        })
     ],
   providers: [ScreenTrackingService, UserTrackingService, {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
   bootstrap: [AppComponent],

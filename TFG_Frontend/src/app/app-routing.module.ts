@@ -13,6 +13,7 @@ import {ContactGuard} from "./front_layer/guards/role-guards/contact-guard/conta
 import {RestorePasswordComponent} from "./front_layer/pages/restore-password/restore-password.component";
 import {CreateUserFormComponent} from "./front_layer/pages/create-user-form/create-user-form.component";
 import {UserDetailComponent} from "./front_layer/pages/user-detail/user-detail.component";
+import {CalendarComponent} from "./front_layer/pages/calendar/calendar.component";
 
 const routes: Routes = [
   {path: "", redirectTo: "login", pathMatch: "full"},
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'frontPage',
     component: FrontPageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent,
     canActivate: [AuthGuard]
   },
   {

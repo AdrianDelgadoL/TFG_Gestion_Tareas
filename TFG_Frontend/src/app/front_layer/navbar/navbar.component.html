@@ -6,7 +6,7 @@
     </ng-template>
     <div *ngIf="userService.userId">
       <a routerLink="/tasks">Lista de tareas</a>
-      <a routerLink="">Calendario</a>
+      <a routerLink="/calendar">Calendario</a>
       <span *ngIf="userService.userPermits && userService.userPermits.includes('CONTACT')"> <a routerLink="/users">Lista de personal</a> </span>
 
     </div>

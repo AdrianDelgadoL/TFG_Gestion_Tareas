@@ -1,2 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+.cal-events { //Prevents angular calendar from showing a dot for every task in a day
+  display: none !important;
+}
