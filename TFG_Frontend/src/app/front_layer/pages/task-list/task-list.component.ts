@@ -9,6 +9,7 @@ import {DialogComponent} from "../../dialog/dialog.component";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user/user.service";
 import {VerifyTaskUseCase} from "../../../uc_layer/database/verify-task.usecase";
+import {DataExportService} from "../../services/data-export/data-export.service";
 
 @Component({
   selector: 'app-task-list',
@@ -23,7 +24,8 @@ export class TaskListComponent implements OnInit {
     private verifyTaskUC: VerifyTaskUseCase,
     private dialog: MatDialog,
     private router: Router,
-    public userService: UserService
+    public userService: UserService,
+    private dataExport: DataExportService,
   ) { }
 
   taskList: MatTableDataSource<Task> = new MatTableDataSource();
@@ -34,6 +36,7 @@ export class TaskListComponent implements OnInit {
     this.getTasksUC.execute(null).then(r => {
       this.taskList = new MatTableDataSource(r)
       this.taskList.sort = this.sort
+      console.log(this.taskList.data.map(task => task))
     });
   }
 
@@ -67,5 +70,9 @@ export class TaskListComponent implements OnInit {
   async markAsVerified(i: number) {
     await this.verifyTaskUC.execute(this.taskList.data[i]["id"]);
     this.taskList.data[i].verified = true;
+  }
+
+  exportData() {
+    this.dataExport.exportCsv(this.taskList.data);
   }
 }

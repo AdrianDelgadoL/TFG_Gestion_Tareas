@@ -5,6 +5,7 @@
     <input matInput (keyup)="applyFilter($event)">
   </mat-form-field>
   <button routerLink="/createTask" *ngIf="userService.userPermits.includes('WRITE')" mat-raised-button class="create-button">Crear nueva tarea</button>
+  <button mat-raised-button *ngIf="userService.userPermits.includes('WRITE')" (click)="exportData()">Descargar datos</button>
 </div>
 
 <!-- Mat table that includes sorting and filtering -->

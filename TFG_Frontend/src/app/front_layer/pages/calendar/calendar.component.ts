@@ -15,10 +15,7 @@ export class CalendarComponent implements OnInit{
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
 
-  events: CalendarEvent[] = [{
-    start: new Date(),
-    title: "Test"
-  }]
+  events: CalendarEvent[] = []
   activeDayIsOpen: boolean = false;
 
   constructor(private getTasksUC: GetTasksUseCase) { }
@@ -28,7 +25,7 @@ export class CalendarComponent implements OnInit{
     const tasks: Task[] = await this.getTasksUC.execute(null);
     tasks.forEach(task => {
       this.events = [
-        ...this.events,
+        ...this.events, // Appends new event to the event array
         {
           start: task.date,
           title: task.name
@@ -38,9 +35,7 @@ export class CalendarComponent implements OnInit{
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    /*
-    * On clicking a day with tasks, open the menu to see the tasks for that day
-    */
+    // On clicking a day with tasks, open the menu to see the tasks for that day
     if (isSameMonth(date, this.viewDate)) {
       this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen) ||
         events.length === 0);

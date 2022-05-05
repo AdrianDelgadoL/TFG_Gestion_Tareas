@@ -4,9 +4,9 @@ export class Task {
   date: Date = new Date();
   type: string = "";
   verified: boolean = false;
-  assignedWorkers: any[];
+  assignedWorkers: string[];
   description: string | undefined;
-  extraFields: Array<any> | undefined;
+  extraFields: Array<{name: string, value: string}> | undefined;
 
   constructor(
     id: string,
@@ -16,7 +16,7 @@ export class Task {
     verified: boolean,
     assignedWorkers: [],
     description?: string,
-    extraFields?: Array<any>
+    extraFields?: Array<{name: string, value: string}>
   ) {
     this.id = id
     this.name = name;

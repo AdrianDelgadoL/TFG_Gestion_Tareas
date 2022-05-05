@@ -29,15 +29,15 @@ export class CreateTaskFormComponent implements OnInit {
     type: ['', Validators.required],
     date: ['', Validators.required],
     description: [''],
-    extraFields: this.fb.array([], Validators.required)
+    extraFields: this.fb.array([])
   });
 
   error: string = "";
 
   workers: Worker[] = [];
   specs: Spec[] = [];
-  assignedWorkers: string[] = [];
-  sidenavDirty: boolean = false; // Control if the sidenav is dirty in order to display error messages
+  assignedWorkers: Worker[] = [];
+  sidenavDirty: boolean = true; // Control if the sidenav is dirty in order to display error messages
 
   // Initialize worker and specialization data for worker and spec selectors
   async ngOnInit() {
@@ -53,7 +53,7 @@ export class CreateTaskFormComponent implements OnInit {
         type: this.form.value.type,
         verified: false,
         description: this.form.value.description,
-        assignedWorkers: this.assignedWorkers,
+        assignedWorkers: this.assignedWorkers.map(worker => worker.id),
         extraFields: this.form.value.extraFields,
       });
       this.router.navigateByUrl("tasks").catch(err => "Error in navigation " + err);
