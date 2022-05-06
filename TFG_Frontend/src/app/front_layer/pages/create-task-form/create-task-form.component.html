@@ -2,9 +2,13 @@
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
     <mat-sidenav #sidenav mode="over" position="end" (closed)="sidenavDirty = true">
-        <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
-          <mat-list-option *ngFor="let worker of workers" [value]="worker">{{worker.name}} {{worker.surname}}</mat-list-option>
-        </mat-selection-list>
+      <mat-form-field appearance="standard" class="sidenav">
+        <mat-label>Filtrar por especialidad</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="p.e. Notícia">
+      </mat-form-field>
+      <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
+        <mat-list-option *ngFor="let worker of filteredWorkers" [value]="worker">{{worker.name}} {{worker.surname}}</mat-list-option>
+      </mat-selection-list>
     </mat-sidenav>
 
     <mat-sidenav-content class="sidenav-content" [formGroup]="form">

@@ -41,6 +41,7 @@ export class TaskDetailComponent implements OnInit {
   error: string = "";
 
   workers: Worker[] = [];
+  filteredWorkers: Worker[] = [];
   task: Task | undefined;
   verified: boolean = false;
   specs: Spec[] = [];
@@ -66,10 +67,9 @@ export class TaskDetailComponent implements OnInit {
     else
       await this.router.navigateByUrl("/tasks");  // If for some reason the task doesn't exist, exit to the task list
 
-    this.workers = await this.getWorkersUC.execute(null);
+    this.filteredWorkers = this.workers = await this.getWorkersUC.execute(null);
     this.specs = await this.getSpecsUC.execute(null);
   }
-
 
   async updateTask() {
     await this.updateTaskUC.execute([this.router.url.split('/')[2],
@@ -124,5 +124,10 @@ export class TaskDetailComponent implements OnInit {
 
   removeField(i: number) {
     this.extraFields.removeAt(i);
+  }
+
+  applyFilter($event: Event) {
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.filteredWorkers = this.workers.filter(worker => worker.spec.includes(filterValue));
   }
 }

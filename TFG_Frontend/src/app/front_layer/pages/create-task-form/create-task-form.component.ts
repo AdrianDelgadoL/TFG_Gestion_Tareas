@@ -34,14 +34,15 @@ export class CreateTaskFormComponent implements OnInit {
 
   error: string = "";
 
-  workers: Worker[] = [];
+  workers: Worker[] = []; //Source worker data array, used to filter
+  filteredWorkers: Worker[] = []; //Shown workers in the UI, takes source data and filters it.
   specs: Spec[] = [];
-  assignedWorkers: Worker[] = [];
+  assignedWorkers: Worker[] = []; //assigned workers to the task
   sidenavDirty: boolean = true; // Control if the sidenav is dirty in order to display error messages
 
   // Initialize worker and specialization data for worker and spec selectors
   async ngOnInit() {
-    this.workers = await this.getWorkersUC.execute(null);
+    this.filteredWorkers = this.workers = await this.getWorkersUC.execute(null);
     this.specs = await this.getSpecsUC.execute(null);
   }
 
@@ -82,5 +83,10 @@ export class CreateTaskFormComponent implements OnInit {
 
   removeField(i: number) {
     this.extraFields.removeAt(i);
+  }
+
+  applyFilter($event: Event) {
+    const filterValue = ($event.target as HTMLInputElement).value;
+    this.filteredWorkers = this.workers.filter(worker => worker.spec.includes(filterValue));
   }
 }
