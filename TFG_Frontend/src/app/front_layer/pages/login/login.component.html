@@ -10,7 +10,8 @@
       </p>
       <p>
         <mat-form-field>
-          <input matInput placeholder="Password" formControlName="password" type="password">
+          <input matInput placeholder="Password" formControlName="password" minlength="6" type="password">
+          <mat-hint>Min. 6 carácteres</mat-hint>
         </mat-form-field>
       </p>
       <p *ngIf="error" class="mat-error">

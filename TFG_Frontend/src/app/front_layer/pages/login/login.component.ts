@@ -31,7 +31,7 @@ export class LoginComponent {
         }
       } catch(e) {
         console.log(e);
-        this.error = "Error en el formulario";
+        this.error = "Correo o contraseña inválidos";
       }
     }
     else {

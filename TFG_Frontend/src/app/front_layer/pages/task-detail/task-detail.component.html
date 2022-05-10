@@ -70,18 +70,18 @@
 
 
       <div formArrayName="extraFields">
-        <div class="extraField" *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
-          <mat-form-field appearance="fill">
+        <p class="extraField" *ngFor="let i = index; let field of extraFields.controls" formGroupName="{{i}}">
+          <mat-form-field appearance="standard">
             <mat-label>Nombre del campo</mat-label>
             <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldName" id="{{'fieldName'+i}}">
             <mat-error *ngIf="form.controls['extraFields'].errors"></mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
+          </mat-form-field>:
+          <mat-form-field appearance="standard">
             <mat-label>Valor del campo</mat-label>
             <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
           <button *ngIf="userService.userPermits.includes('MODIFY')" (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
-        </div>
+        </p>
       </div>
 
 
