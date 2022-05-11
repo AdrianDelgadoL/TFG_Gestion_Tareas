@@ -13,6 +13,7 @@ export class GetTasksByDateUseCase implements UseCaseTemplate<Date, Promise<any>
 
   execute(operator: Date): Promise<any> {
     if(this.userService.userPermits.includes('READ')) {
+      console.log("dentro de READ");
       return this.db.getTaskByDate(operator, this.userService.userId);
     }
     return this.db.getTaskByDate(operator);

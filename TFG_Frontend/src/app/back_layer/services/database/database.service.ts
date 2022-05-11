@@ -85,7 +85,7 @@ export class DatabaseService {
     const q = userid? query(collection(this.db, "Tareas"),
       where("date", "<=", new Date(date.setDate(date.getDate()))), //Since Firestore saves dates at 00:00
       where("date",">=", new Date(date.setDate(date.getDate()-1))), //To get today's tasks get tasks between yesterday and today
-      where("assignedWorker", "array-contains", userid))
+      where("assignedWorkers", "array-contains", userid))
       : query(collection(this.db, "Tareas"),
       where("date", "<=", new Date(date.setDate(date.getDate()))),
       where("date",">=", new Date(date.setDate(date.getDate()-1))),

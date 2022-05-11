@@ -27,7 +27,7 @@ export class LoginComponent {
       try {
         const user = await this.userService.signinUser(this.form.value.email, this.form.value.password);
         if (user) {
-          await this.router.navigateByUrl("tasks");
+          await this.router.navigateByUrl("/frontPage");
         }
       } catch(e) {
         console.log(e);
