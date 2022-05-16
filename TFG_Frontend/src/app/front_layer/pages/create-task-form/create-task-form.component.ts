@@ -42,7 +42,8 @@ export class CreateTaskFormComponent implements OnInit {
 
   // Initialize worker and specialization data for worker and spec selectors
   async ngOnInit() {
-    this.filteredWorkers = this.workers = await this.getWorkersUC.execute(null);
+    this.workers = await this.getWorkersUC.execute(null);
+    this.filteredWorkers = this.workers = this.workers.filter(worker => worker.available)
     this.specs = await this.getSpecsUC.execute(null);
   }
 

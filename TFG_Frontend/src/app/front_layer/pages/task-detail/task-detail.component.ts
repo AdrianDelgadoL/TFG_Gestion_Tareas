@@ -67,7 +67,8 @@ export class TaskDetailComponent implements OnInit {
     else
       await this.router.navigateByUrl("/tasks");  // If for some reason the task doesn't exist, exit to the task list
 
-    this.filteredWorkers = this.workers = await this.getWorkersUC.execute(null);
+    this.workers = await this.getWorkersUC.execute(null);
+    this.filteredWorkers = this.workers = this.workers.filter(worker => worker.available)
     this.specs = await this.getSpecsUC.execute(null);
   }
 
@@ -112,7 +113,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   private createField() {
-    return this.fb.group({ //TODO: mirar si han de ser required
+    return this.fb.group({
       fieldName: [''],
       fieldValue: ['']
     });

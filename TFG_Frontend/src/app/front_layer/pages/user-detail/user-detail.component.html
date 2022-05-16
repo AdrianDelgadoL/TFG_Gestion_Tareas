@@ -1,8 +1,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- used for mat-icon -->
 <div class="container">
-  <div *ngIf="userService.userPermits.includes('WRITE') else noPermits" class="button">
+  <div *ngIf="userService.userPermits.includes('MODIFY') else noPermits" class="button">
     <button mat-raised-button type="button" (click)="updateUser()">Terminar</button>
-    <button mat-raised-button type="button" color="warn" (click)="openDialog()">Eliminar</button>
   </div>
   <ng-template #noPermits>
     <div class="button">

@@ -147,8 +147,10 @@ export class DatabaseService {
     return null;
   }
 
-  async deleteWorker(id: string) {
-    await deleteDoc(doc(this.db, "Personal", id));
+  async disableWorker(id: string, available: boolean) {
+    await setDoc(doc(this.db, "Personal", id), {
+      available: available
+    });
   }
 
   //Spec/Task type data

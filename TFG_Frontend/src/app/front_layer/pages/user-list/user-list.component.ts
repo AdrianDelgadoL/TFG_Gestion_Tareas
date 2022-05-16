@@ -5,8 +5,7 @@ import {GetWorkersUseCase} from "../../../uc_layer/database/get-workers.usecase"
 import {MatSort} from "@angular/material/sort";
 import {UserService} from "../../services/user/user.service";
 import {Router} from "@angular/router";
-import {DeleteWorkerUseCase} from "../../../uc_layer/database/delete-worker.usecase";
-import {DialogComponent} from "../../dialog/dialog.component";
+import {DisableWorkerUseCase} from "../../../uc_layer/database/disable-worker.usecase";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -17,7 +16,7 @@ import {MatDialog} from "@angular/material/dialog";
 export class UserListComponent implements OnInit {
 
   constructor(private getWorkersUC: GetWorkersUseCase,
-              private deleteWorkerUC: DeleteWorkerUseCase,
+              private disableWorkerUC: DisableWorkerUseCase,
               public userService: UserService,
               private dialog: MatDialog,
               private router: Router) { }
@@ -46,21 +45,12 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  openDialog(id: number) {
-    this.dialog.open(DialogComponent, {
-      width: "400px",
-      data: {
-        title: "Eliminar tarea",
-        message: "¿Seguro que quieres eliminar este usuario?",
-        confirmText: "Sí",
-        cancelText: "No"
-      }
-    }).afterClosed().subscribe(async result => {
-      if (result) {
-        await this.deleteWorkerUC.execute(this.userList.data[id]["id"]);
-        this.userList.data.splice(id, 1);
-        this.userList._updateChangeSubscription(); //Refresh datasource
-      }
-    });
+  async disableWorker(j: number) {
+    try {
+      await this.disableWorkerUC.execute([this.userList.data[j].id, !this.userList.data[j].available]);
+      this.userList.data[j].available = !this.userList.data[j].available
+    } catch (e) {
+      console.log(e)
+    }
   }
 }

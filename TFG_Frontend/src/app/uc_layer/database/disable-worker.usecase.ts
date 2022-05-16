@@ -5,12 +5,12 @@ import {DatabaseService} from "../../back_layer/services/database/database.servi
 @Injectable({
   providedIn: "root"
 })
-export class DeleteWorkerUseCase implements UseCaseTemplate<string, Promise<any>> {
+export class DisableWorkerUseCase implements UseCaseTemplate<[string, boolean], Promise<any>> {
   constructor(private db: DatabaseService) {
   }
 
-  async execute(operator: string): Promise<any> {
-    await this.db.deleteWorker(operator); //TODO: Deberia eliminarse el usuario por Auth pero se necesita un back o Cloud Functions
+  async execute(operator: [string, boolean]): Promise<any> {
+    await this.db.disableWorker(operator[0], operator[1]);
   }
 
 }

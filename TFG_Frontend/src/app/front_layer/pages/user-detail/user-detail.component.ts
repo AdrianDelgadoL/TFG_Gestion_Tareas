@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {GetWorkerByIdUseCase} from "../../../uc_layer/database/get-worker-by-id.usecase";
@@ -8,9 +8,7 @@ import {Role} from "../../../entities/role";
 import {GetSpecsUseCase} from "../../../uc_layer/database/get-specs.usecase";
 import {GetRolesUseCase} from "../../../uc_layer/database/get-roles.usecase";
 import {UserService} from "../../services/user/user.service";
-import {DeleteWorkerUseCase} from "../../../uc_layer/database/delete-worker.usecase";
 import {UpdateWorkerUseCase} from "../../../uc_layer/database/update-worker.usecase";
-import {DialogComponent} from "../../dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -26,7 +24,6 @@ export class UserDetailComponent implements OnInit {
               private getWorkerUC: GetWorkerByIdUseCase,
               private getSpecsUC: GetSpecsUseCase,
               private getRolesUC: GetRolesUseCase,
-              private deleteWorkerUC: DeleteWorkerUseCase,
               private updateWorkerUC: UpdateWorkerUseCase,
               public userService: UserService) { }
 
@@ -77,21 +74,5 @@ export class UserDetailComponent implements OnInit {
     await this.router.navigateByUrl("/users");
   }
 
-  openDialog() {
-    this.dialog.open(DialogComponent, {
-      width: "400px",
-      data: {
-        title: "Eliminar tarea",
-        message: "¿Seguro que quieres eliminar este usuario?",
-        confirmText: "Sí",
-        cancelText: "No"
-      }
-    }).afterClosed().subscribe(async result => {
-      if (result) {
-        await this.deleteWorkerUC.execute(this.id);
-        await this.router.navigateByUrl("/users");
-      }
-    });
-  }
 
 }
