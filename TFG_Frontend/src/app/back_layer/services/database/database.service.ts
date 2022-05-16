@@ -160,7 +160,7 @@ export class DatabaseService {
     let specs: Spec[] = [];
     const querySnapshot = await getDocs(collection(this.db, "Especialidades"));
     querySnapshot.forEach(doc => {
-      specs.push(specMapper.deserialize(doc.id));
+      specs.push(specMapper.deserialize(doc.id, doc.data()));
     })
     return specs;
   }

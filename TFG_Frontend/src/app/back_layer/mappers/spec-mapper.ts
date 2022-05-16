@@ -1,9 +1,10 @@
 import {Spec} from "../../entities/spec";
 
 export class SpecMapper {
-  deserialize(id: string) {
+  deserialize(id: string, data: any) {
     return new Spec(
-      id
+      id,
+      data["mandatoryFields"]
     )
   }
 }

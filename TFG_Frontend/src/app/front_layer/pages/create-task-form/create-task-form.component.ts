@@ -45,6 +45,7 @@ export class CreateTaskFormComponent implements OnInit {
     this.workers = await this.getWorkersUC.execute(null);
     this.filteredWorkers = this.workers = this.workers.filter(worker => worker.available)
     this.specs = await this.getSpecsUC.execute(null);
+    console.log(this.specs)
   }
 
   createTask() {
@@ -72,13 +73,13 @@ export class CreateTaskFormComponent implements OnInit {
   }
 
   addField() {
-    this.extraFields.push(this.createField());
+    this.extraFields.push(this.createField('', ''));
   }
 
-  private createField() {
+  private createField(name: string, value: string) {
     return this.fb.group({
-      fieldName: [''],
-      fieldValue: ['']
+      fieldName: [name],
+      fieldValue: [value]
     })
   }
 
@@ -89,5 +90,15 @@ export class CreateTaskFormComponent implements OnInit {
   applyFilter($event: Event) {
     const filterValue = ($event.target as HTMLInputElement).value;
     this.filteredWorkers = this.workers.filter(worker => worker.spec.includes(filterValue));
+  }
+
+  onTypeChange($event: any) {
+    const selectValue = $event.source.value;
+    const fields = this.specs.filter(spec => spec.id == selectValue)[0]["fields"];
+    console.log(fields)
+    for (let field of fields) {
+      this.extraFields.push(this.createField(field, ''))
+    }
+
   }
 }
