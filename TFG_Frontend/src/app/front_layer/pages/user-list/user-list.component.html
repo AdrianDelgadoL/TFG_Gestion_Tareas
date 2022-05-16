@@ -41,19 +41,11 @@
     </td>
   </ng-container>
 
-  <ng-container matColumnDef="contact">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef>
-      <button mat-flat-button>
-        <b>Contactar</b>
-      </button>
-    </td>
-  </ng-container>
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let j = index">
-      <button *ngIf="userService.userPermits.includes('DELETE')" mat-raised-button color="warn" (click)="disableWorker(j)">
+      <button *ngIf="userService.userPermits.includes('DELETE')" mat-raised-button (click)="disableWorker(j)">
         <b>Desactivar/Activar</b>
       </button>
     </td>

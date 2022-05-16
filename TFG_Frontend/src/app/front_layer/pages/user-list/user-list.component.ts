@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
               private router: Router) { }
 
   userList: MatTableDataSource<Worker> = new MatTableDataSource()
-  displayedColumns: string[] = ["name", "surname", "available", "spec", "edit", "contact", "delete"];
+  displayedColumns: string[] = ["name", "surname", "available", "spec", "edit", "delete"];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   ngOnInit(): void {
