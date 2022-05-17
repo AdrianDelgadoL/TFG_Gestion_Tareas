@@ -10,6 +10,7 @@ export class WorkerMapper {
       data["available"],
       data["role"],
       data["email"],
+      data["platforms"],
     )
   }
 }

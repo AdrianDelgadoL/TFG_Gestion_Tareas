@@ -7,7 +7,13 @@
         <input matInput (keyup)="applyFilter($event)">
       </mat-form-field>
       <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
-        <mat-list-option *ngFor="let worker of filteredWorkers" [value]="worker.id">{{worker.name}} {{worker.surname}}</mat-list-option>
+        <mat-list-option *ngFor="let worker of filteredWorkers" [value]="worker.id">
+          <p>
+            {{worker.name}} {{worker.surname}}
+            <br>
+            <span *ngIf="selectedSpec == 'Análisis'">   {{worker.platforms}}</span>
+          </p>
+        </mat-list-option>
       </mat-selection-list>
     </mat-sidenav>
 

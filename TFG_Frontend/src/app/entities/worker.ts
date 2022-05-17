@@ -6,6 +6,7 @@ export class Worker {
   available: boolean = true;
   role: string = "";
   email: string = "";
+  platforms: string[] = []
 
   constructor(
     id: string,
@@ -15,6 +16,7 @@ export class Worker {
     available: boolean,
     role: string,
     email: string,
+    platforms: string[]
   ) {
     this.id = id;
     this.name = name;
@@ -23,5 +25,6 @@ export class Worker {
     this.available = available;
     this.role = role;
     this.email = email;
+    this.platforms = platforms;
   }
 }
