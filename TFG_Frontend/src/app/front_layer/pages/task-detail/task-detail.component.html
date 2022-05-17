@@ -43,7 +43,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Tipo de tarea</mat-label>
           <mat-select [disabled]="!userService.userPermits.includes('MODIFY')" formControlName="type"> <!-- throws a warning angular but the alternative doesn't work properly -->
-            <mat-option *ngFor="let spec of specs" [value]="spec.id">
+            <mat-option *ngFor="let spec of specs" [value]="spec.id" (onSelectionChange)="onTypeChange($event)">
               {{spec.id}}
             </mat-option>
           </mat-select>

@@ -39,6 +39,7 @@ export class CreateTaskFormComponent implements OnInit {
   specs: Spec[] = [];
   assignedWorkers: Worker[] = []; //assigned workers to the task
   sidenavDirty: boolean = true; // Control if the sidenav is dirty in order to display error messages
+  selectedSpec: string = "";
 
   // Initialize worker and specialization data for worker and spec selectors
   async ngOnInit() {
@@ -93,12 +94,18 @@ export class CreateTaskFormComponent implements OnInit {
   }
 
   onTypeChange($event: any) {
-    const selectValue = $event.source.value;
-    const fields = this.specs.filter(spec => spec.id == selectValue)[0]["fields"];
-    console.log(fields)
-    for (let field of fields) {
-      this.extraFields.push(this.createField(field, ''))
+    if($event.isUserInput) {
+      if(this.selectedSpec) {
+        for (let i in this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]) {
+          this.removeField(0);
+        }
+      }
+      this.selectedSpec = $event.source.value;
+      const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
+      console.log(fields)
+      for (let field of fields) {
+        this.extraFields.insert(0, this.createField(field, ''))
+      }
     }
-
   }
 }

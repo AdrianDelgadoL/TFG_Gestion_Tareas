@@ -47,9 +47,9 @@ export class TaskDetailComponent implements OnInit {
   specs: Spec[] = [];
   assignedWorkers: string[] = [];
   sidenavDirty: boolean = false; // Control if the sidenav is dirty in order to display error messages
+  selectedSpec: string = ""; // Control which spec fields should be displayed
 
   // Initialize worker and specialization data for worker and spec selectors
-
   async ngOnInit() {
     this.task = await this.getTaskUC.execute(this.router.url.split('/')[2])
     // split the url by / in order to get the :id part
@@ -61,7 +61,7 @@ export class TaskDetailComponent implements OnInit {
         date: this.task.date,
         description: this.task.description,
       });
-      this.task.extraFields?.forEach(item => this.extraFields.push(this.createFieldWithData(item)));
+      this.task.extraFields?.forEach(item => this.extraFields.push(this.fb.group(item))); // using createField method doesn't work, but this does
       this.assignedWorkers = this.task.assignedWorkers;
     }
     else
@@ -109,18 +109,14 @@ export class TaskDetailComponent implements OnInit {
   }
 
   addField() {
-    this.extraFields.push(this.createField());
+    this.extraFields.push(this.createField('', ''));
   }
 
-  private createField() {
+  private createField(name: string, value: string) {
     return this.fb.group({
-      fieldName: [''],
-      fieldValue: ['']
+      fieldName: [name],
+      fieldValue: [value]
     });
-  }
-
-  private createFieldWithData(data: {name: string, value: string}) {
-    return this.fb.group(data);
   }
 
   removeField(i: number) {
@@ -128,7 +124,26 @@ export class TaskDetailComponent implements OnInit {
   }
 
   applyFilter($event: Event) {
+    // Filtering for worker list
     const filterValue = ($event.target as HTMLInputElement).value;
     this.filteredWorkers = this.workers.filter(worker => worker.spec.includes(filterValue));
   }
+
+  onTypeChange($event: any) {
+    // Deletes last selected spec fields and adds the new one's instead
+    if($event.isUserInput) {
+      if(this.selectedSpec) {
+        for (let i in this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]) {
+          this.removeField(0);
+        }
+      }
+      this.selectedSpec = $event.source.value;
+      const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
+      console.log(fields)
+      for (let field of fields) {
+        this.extraFields.insert(0, this.createField(field, ''))
+      }
+    }
+  }
+
 }
