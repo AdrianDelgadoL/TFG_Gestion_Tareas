@@ -100,7 +100,7 @@ export class DatabaseService {
 
   // Workers data
   async createWorker(id: string, data: {email: string, speciality: string, name: string, surname: string, available: boolean, role: string}) {
-    await updateDoc(doc(this.db, "Personal", id), data);
+    await setDoc(doc(this.db, "Personal", id), data);
   }
 
   async getWorkers() {
@@ -148,7 +148,7 @@ export class DatabaseService {
   }
 
   async disableWorker(id: string, available: boolean) {
-    await setDoc(doc(this.db, "Personal", id), {
+    await updateDoc(doc(this.db, "Personal", id), {
       available: available
     });
   }
