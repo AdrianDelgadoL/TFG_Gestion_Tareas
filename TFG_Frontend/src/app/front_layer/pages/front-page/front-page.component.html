@@ -1,7 +1,7 @@
 <div>
   <h1>Cierran próximamente</h1>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z2"> <!-- using mat table only for aesthetic coherence, since it can't work properly with the used array -->
-    <ng-container matColumnDef="today">
+    <ng-container matColumnDef="firstColumn">
       <th mat-header-cell *matHeaderCellDef>Hoy</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -11,7 +11,7 @@
         </ul>
       </td>
     </ng-container>
-    <ng-container matColumnDef="tomorrow">
+    <ng-container matColumnDef="secondColumn">
       <th mat-header-cell *matHeaderCellDef>Mañana</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -21,7 +21,7 @@
         </ul>
       </td>
     </ng-container>
-    <ng-container matColumnDef="afterTomorrow">
+    <ng-container matColumnDef="thirdColumn">
       <th mat-header-cell *matHeaderCellDef>Pasado mañana</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -40,7 +40,7 @@
 <div>
   <h1>Terminaron hace poco</h1>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z2"> <!-- using mat table only for aesthetic coherence, since it can't work properly with the used array -->
-    <ng-container matColumnDef="today">
+    <ng-container matColumnDef="firstColumn">
       <th mat-header-cell *matHeaderCellDef>Ayer</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -50,7 +50,7 @@
         </ul>
       </td>
     </ng-container>
-    <ng-container matColumnDef="tomorrow">
+    <ng-container matColumnDef="secondColumn">
       <th mat-header-cell *matHeaderCellDef>Antes de ayer</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -60,7 +60,7 @@
         </ul>
       </td>
     </ng-container>
-    <ng-container matColumnDef="afterTomorrow">
+    <ng-container matColumnDef="thirdColumn">
       <th mat-header-cell *matHeaderCellDef>Hace dos días</th>
       <td mat-cell *matCellDef>
         <ul>
@@ -73,5 +73,46 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <h1>Historial</h1>
+
+  <div class="inputs">
+    <mat-form-field appearance="standard">
+      <mat-label>Filtrar tareas por nombre</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="tasks" class="mat-elevation-z8"> <!-- using mat table only for aesthetic coherence, since it can't work properly with the used array -->
+    <ng-container matColumnDef="firstColumn">
+      <th mat-header-cell *matHeaderCellDef>Nombre de tarea</th>
+      <td mat-cell *matCellDef="let task">
+        {{task.name}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="secondColumn">
+      <th mat-header-cell *matHeaderCellDef>Trabajadores</th>
+      <td mat-cell *matCellDef="let task">
+        <p *ngFor="let worker of task.assignedWorkers">
+          {{worker.name}} {{worker.surname}}
+        </p>
+
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="thirdColumn">
+      <th mat-header-cell *matHeaderCellDef>Tipo de tarea</th>
+      <td mat-cell *matCellDef="let task">
+        {{task.type}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- In case no data matches the filter, this row is shown instead -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No se han encontrado tareas para ese filtro</td>
+    </tr>
   </table>
 </div>

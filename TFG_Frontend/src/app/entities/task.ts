@@ -1,10 +1,12 @@
+import {Worker} from "./worker";
+
 export class Task {
   id: string = "";
   name: string = "";
   date: Date = new Date();
   type: string = "";
   verified: boolean = false;
-  assignedWorkers: string[];
+  assignedWorkers: any[];
   description: string | undefined;
   extraFields: Array<{name: string, value: string}> | undefined;
 
