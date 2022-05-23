@@ -55,7 +55,15 @@ export class DatabaseService {
     let taskMapper = new TaskMapper();
     let tasks: Task[] = [];
 
-    const querySnapshot = userid ? await getDocs(query(collection(this.db, "Tareas"), where("assignedWorkers", "array-contains", userid))) : await getDocs(collection(this.db, "Tareas"));
+    const querySnapshot = userid ?
+      await getDocs(query(
+        collection(this.db, "Tareas"),
+        where("assignedWorkers", "array-contains", userid),
+        where("verified", "==", false))) :
+      await getDocs(query(
+        collection(this.db, "Tareas"),
+        where("verified", "==", false)));
+
     querySnapshot.forEach(doc => {
       let workers: Worker[] = []
       doc.data()["assignedWorkers"].forEach((data: string) => {

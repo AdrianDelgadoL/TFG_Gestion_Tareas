@@ -46,7 +46,7 @@ export class TaskDetailComponent implements OnInit {
   verified: boolean = false;
   specs: Spec[] = [];
   assignedWorkers: string[] = [];
-  sidenavDirty: boolean = false; // Control if the sidenav is dirty in order to display error messages
+  color: string = "";
   selectedSpec: string = ""; // Control which spec fields should be displayed
 
   // Initialize worker and specialization data for worker and spec selectors
@@ -73,18 +73,25 @@ export class TaskDetailComponent implements OnInit {
   }
 
   async updateTask() {
-    await this.updateTaskUC.execute([this.router.url.split('/')[2],
-      {
-        name: this.form.value.name,
-        date: this.form.value.date,
-        type: this.form.value.type,
-        verified: this.verified,
-        description: this.form.value.description,
-        assignedWorkers: this.assignedWorkers,
-        extraFields: this.form.value.extraFields
-      }
-    ]);
-    await this.router.navigateByUrl("/tasks");
+    if(this.form.valid && this.assignedWorkers.length > 0) {
+      await this.updateTaskUC.execute([this.router.url.split('/')[2],
+        {
+          name: this.form.value.name,
+          date: this.form.value.date,
+          type: this.form.value.type,
+          verified: this.verified,
+          description: this.form.value.description,
+          assignedWorkers: this.assignedWorkers,
+          extraFields: this.form.value.extraFields
+        }
+      ]);
+      await this.router.navigateByUrl("/tasks");
+    } else {
+      this.error = "Completa los campos marcados";
+      this.form.markAllAsTouched();
+      if (this.assignedWorkers.length < 1)
+        this.color = "warn"
+    }
   }
 
   openDialog() {

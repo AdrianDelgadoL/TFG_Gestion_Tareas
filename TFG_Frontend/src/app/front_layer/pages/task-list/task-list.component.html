@@ -33,7 +33,7 @@
   <ng-container matColumnDef="verify">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let j = index">
-      <button (click)="markAsVerified(j)" *ngIf="userService.userPermits.includes('VERIFY') && !taskList.data[j].verified" mat-button>
+      <button (click)="markAsVerified(j)" *ngIf="userService.userPermits.includes('VERIFY')" mat-button>
         <b>Verificar tarea</b>
       </button>
     </td>

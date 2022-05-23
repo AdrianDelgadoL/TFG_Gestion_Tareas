@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!-- used for mat-icon -->
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
-    <mat-sidenav #sidenav mode="over" position="end" (closed)="sidenavDirty = true">
+    <mat-sidenav #sidenav mode="over" position="end" (closed)="color = ''">
       <mat-form-field appearance="standard" class="sidenav">
         <mat-label>Filtrar por especialidad</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="p.e. Notícia">
@@ -20,7 +20,10 @@
     <mat-sidenav-content class="sidenav-content" [formGroup]="form">
 
       <div class="button">
-        <button mat-raised-button type="button" (click)="createTask()">Terminar</button>
+        <button mat-raised-button type="button" (click)="createTask()">Terminar</button> <br>
+        <span *ngIf="error" class="mat-error">
+          {{error}}
+        </span>
       </div>
 
       <p>
@@ -31,13 +34,10 @@
         </mat-form-field>
 
         <span class="spacer"></span>
-        <mat-form-field>
-          <mat-label>Empleados asignados</mat-label>
-          <input readonly [value]="assignedWorkers" matInput>
-          <button mat-icon-button matSuffix (click)="sidenav.toggle()"><mat-icon>+</mat-icon></button>
-          <mat-error>Selecciona trabajadores para la tarea</mat-error>
-        </mat-form-field>
-        </p>
+        <span>
+          <button mat-raised-button [color]="color" (click)="sidenav.toggle()">Empleados</button>
+        </span>
+      </p>
 
       <p>
         <mat-form-field appearance="fill">
@@ -84,9 +84,6 @@
 
       </div>
 
-      <p *ngIf="error" class="mat-error">
-        {{error}}
-      </p>
       <button mat-raised-button (click)="addField()" style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
 
     </mat-sidenav-content>

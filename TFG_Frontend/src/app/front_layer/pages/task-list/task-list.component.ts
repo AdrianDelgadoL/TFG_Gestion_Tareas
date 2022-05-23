@@ -69,7 +69,8 @@ export class TaskListComponent implements OnInit {
 
   async markAsVerified(i: number) {
     await this.verifyTaskUC.execute(this.taskList.data[i]["id"]);
-    this.taskList.data[i].verified = true;
+    this.taskList.data.splice(i, 1); // Hide verified tasks
+    this.taskList._updateChangeSubscription(); //Refresh datasource
   }
 
   exportData() {
