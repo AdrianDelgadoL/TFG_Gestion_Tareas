@@ -1,13 +1,13 @@
 <div class="container">
   <div class="buttons">
     <button mat-button (click)="activeDayIsOpen = false" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
-      Previous
+      Anterior
     </button>
     <button mat-button (click)="activeDayIsOpen = false" mwlCalendarToday [(viewDate)]="viewDate">
-      Today
+      Actual
     </button>
     <button mat-button (click)="activeDayIsOpen = false" color="primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
-      Next
+      Siguiente
     </button>
   </div>
     <h1>{{viewDate | calendarDate:(view + 'ViewTitle'): 'es'}}</h1>
