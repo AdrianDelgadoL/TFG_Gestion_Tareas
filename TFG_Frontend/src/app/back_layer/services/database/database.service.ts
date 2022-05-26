@@ -134,7 +134,7 @@ export class DatabaseService {
     }
   }
 
-  async updateWorker(id: string, data: any) {
+  async updateWorker(id: string, data: {name: string, surname: string, speciality: string, role: string, platforms: string[]}) {
     const docRef = doc(this.db, "Personal", id);
     await updateDoc(docRef, data);
   }

@@ -9,7 +9,7 @@ export class UpdateWorkerUseCase implements UseCaseTemplate<[string, any], Promi
   constructor(private db: DatabaseService) {
   }
 
-  async execute(operator: [string, any]): Promise<any> {
-    await this.db.updateWorker(operator[0], operator[1]) //TODO: arreglar tema platforms separados por coma a array
+  async execute(operator: [string, {name: string, surname: string, speciality: string, role: string, platforms: string[]}]): Promise<any> {
+    await this.db.updateWorker(operator[0], operator[1]);
   }
 }

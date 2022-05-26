@@ -69,7 +69,7 @@ export class UserDetailComponent implements OnInit {
           surname: this.form.value.surname,
           speciality: this.form.value.spec,
           role: this.form.value.role,
-          platforms: this.form.value.platforms
+          platforms: this.form.value.platforms.split(',')
         }]);
       await this.router.navigateByUrl("/users");
     }
