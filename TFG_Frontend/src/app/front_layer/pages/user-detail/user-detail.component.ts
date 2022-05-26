@@ -38,8 +38,8 @@ export class UserDetailComponent implements OnInit {
     name: ['', Validators.required],
     surname: ['', Validators.required],
     spec: ['', Validators.required],
+    platforms: ['', Validators.required],
     role: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]]
   });
 
   async ngOnInit() {
@@ -53,7 +53,7 @@ export class UserDetailComponent implements OnInit {
         surname: this.worker.surname,
         spec: this.worker.spec,
         role: this.worker.role,
-        email: this.worker.email,
+        platforms: this.worker.platforms
       });
     }
     else {
@@ -62,16 +62,21 @@ export class UserDetailComponent implements OnInit {
   }
 
   async updateUser() {
-    await this.updateWorkerUC.execute([this.id,
-      {
-        name: this.form.value.name,
-        surname: this.form.value.surname,
-        speciality: this.form.value.spec,
-        role: this.form.value.role,
-        email: this.form.value.email,
-
-      }]);
-    await this.router.navigateByUrl("/users");
+    if(this.form.valid) {
+      await this.updateWorkerUC.execute([this.id,
+        {
+          name: this.form.value.name,
+          surname: this.form.value.surname,
+          speciality: this.form.value.spec,
+          role: this.form.value.role,
+          platforms: this.form.value.platforms
+        }]);
+      await this.router.navigateByUrl("/users");
+    }
+    else {
+      this.error = "Completa los campos marcados"
+      this.form.markAllAsTouched()
+    }
   }
 
 

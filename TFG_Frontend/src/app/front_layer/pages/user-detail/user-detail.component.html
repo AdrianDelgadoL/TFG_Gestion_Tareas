@@ -2,6 +2,9 @@
 <div class="container">
   <div *ngIf="userService.userPermits.includes('MODIFY') else noPermits" class="button">
     <button mat-raised-button type="button" (click)="updateUser()">Terminar</button>
+    <p *ngIf="error" class="mat-error">
+      {{error}}
+    </p>
   </div>
   <ng-template #noPermits>
     <div class="button">
@@ -51,13 +54,11 @@
 
     <p>
       <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="email" type="email" required>
-        <mat-error *ngIf="form.controls['email'].errors">Introduce un email válido</mat-error>
+        <mat-label>Plataformas</mat-label>
+        <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="platforms" required>
+        <mat-hint>Nombres de plataformas separadas por coma</mat-hint>
+        <mat-error *ngIf="form.controls['platforms'].errors">Introduce una o más plataformas</mat-error>
       </mat-form-field>
-    </p>
-    <p *ngIf="error" class="mat-error">
-      {{error}}
     </p>
   </form>
 

@@ -11,8 +11,9 @@ export class CreateUserUseCase implements UseCaseTemplate<{ email: string, passw
               private auth: AuthService) {
   }
 
-  async execute(operator: { email: string; password: string; spec: string; name: string; surname: string, role: string }): Promise<any> {
+  async execute(operator: { email: string, password: string, spec: string; name: string, surname: string, role: string, platforms: string }): Promise<any> {
     const user = await this.auth.registerUser(operator.email, operator.password);
-    await this.db.createWorker(user.user.uid, {email: operator.email, speciality: operator.spec, name: operator.name, surname: operator.surname, available: true, role: operator.role});
+    const platforms = operator.platforms.split(',');
+    await this.db.createWorker(user.user.uid, {email: operator.email, speciality: operator.spec, name: operator.name, surname: operator.surname, available: true, role: operator.role, platforms: platforms});
   }
 }

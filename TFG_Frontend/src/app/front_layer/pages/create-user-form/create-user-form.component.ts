@@ -25,6 +25,7 @@ export class CreateUserFormComponent implements OnInit {
     surname: ['', Validators.required],
     spec: ['', Validators.required],
     role: ['', Validators.required],
+    platforms: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });

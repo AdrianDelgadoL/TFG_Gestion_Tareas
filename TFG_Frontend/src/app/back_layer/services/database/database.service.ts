@@ -107,7 +107,7 @@ export class DatabaseService {
   }
 
   // Workers data
-  async createWorker(id: string, data: {email: string, speciality: string, name: string, surname: string, available: boolean, role: string}) {
+  async createWorker(id: string, data: {email: string, speciality: string, name: string, surname: string, available: boolean, role: string, platforms: string[]}) {
     await setDoc(doc(this.db, "Personal", id), data);
   }
 

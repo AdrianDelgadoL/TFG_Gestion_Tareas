@@ -2,6 +2,9 @@
 <div class="container">
       <div class="button">
         <button mat-raised-button type="button" (click)="createUser()">Terminar</button>
+        <p *ngIf="error" class="mat-error">
+          {{error}}
+        </p>
       </div>
   <form [formGroup]="form" >
     <p>
@@ -51,16 +54,20 @@
       </mat-form-field>
 
       <span class="spacer"></span>
-
+      <mat-form-field appearance="fill">
+        <mat-label>Plataformas de juego</mat-label>
+        <input matInput formControlName="platforms" required>
+        <mat-hint>Nombres de plataformas separadas por coma</mat-hint>
+        <mat-error *ngIf="form.controls['platforms'].errors">Introduce una o más plataformas</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
       <mat-form-field appearance="fill">
         <mat-label>Contraseña</mat-label>
         <input matInput minlength="6" formControlName="password" type="password" required>
         <mat-hint>Min. 6 carácteres</mat-hint>
         <mat-error *ngIf="form.controls['password'].errors">Introduce una contraseña válida</mat-error>
       </mat-form-field>
-    </p>
-    <p *ngIf="error" class="mat-error">
-      {{error}}
     </p>
   </form>
 
