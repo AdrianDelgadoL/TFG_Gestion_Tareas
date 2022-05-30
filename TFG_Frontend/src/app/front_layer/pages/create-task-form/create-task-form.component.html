@@ -54,7 +54,7 @@
 
         <mat-form-field appearance="fill">
           <mat-label>Elige una fecha</mat-label>
-          <input matInput formControlName="date" [matDatepicker]="picker" required>
+          <input matInput readonly formControlName="date" [matDatepicker]="picker" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="form.controls['date'].errors">Elige una fecha</mat-error>

@@ -38,6 +38,7 @@ export class UserDetailComponent implements OnInit {
     name: ['', Validators.required],
     surname: ['', Validators.required],
     spec: ['', Validators.required],
+    email: ['', Validators.required],
     platforms: ['', Validators.required],
     role: ['', Validators.required],
   });
@@ -53,6 +54,7 @@ export class UserDetailComponent implements OnInit {
         surname: this.worker.surname,
         spec: this.worker.spec,
         role: this.worker.role,
+        email: this.worker.email,
         platforms: this.worker.platforms
       });
     }
@@ -63,15 +65,19 @@ export class UserDetailComponent implements OnInit {
 
   async updateUser() {
     if(this.form.valid) {
-      await this.updateWorkerUC.execute([this.id,
-        {
-          name: this.form.value.name,
-          surname: this.form.value.surname,
-          speciality: this.form.value.spec,
-          role: this.form.value.role,
-          platforms: this.form.value.platforms.split(',')
-        }]);
-      await this.router.navigateByUrl("/users");
+      try {
+        await this.updateWorkerUC.execute([this.id,
+          {
+            name: this.form.value.name,
+            surname: this.form.value.surname,
+            speciality: this.form.value.spec,
+            role: this.form.value.role,
+            platforms: this.form.value.platforms
+          }]);
+        await this.router.navigateByUrl("/users");
+      }  catch (e) {
+        console.log(e);
+      }
     }
     else {
       this.error = "Completa los campos marcados"

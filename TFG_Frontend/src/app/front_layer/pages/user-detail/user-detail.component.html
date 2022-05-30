@@ -54,6 +54,14 @@
 
     <p>
       <mat-form-field appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput readonly formControlName="email">
+        <mat-error *ngIf="form.controls['email'].errors">Introduce un correo válido</mat-error>
+      </mat-form-field>
+
+      <span class="spacer"></span>
+
+      <mat-form-field appearance="fill">
         <mat-label>Plataformas</mat-label>
         <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="platforms" required>
         <mat-hint>Nombres de plataformas separadas por coma</mat-hint>

@@ -23,7 +23,7 @@
     </td>
   </ng-container>
   <ng-container matColumnDef="assignee">
-    <th mat-header-cell mat-sort-header *matHeaderCellDef>Asignación</th>
+    <th mat-header-cell *matHeaderCellDef>Asignación</th>
     <td mat-cell *matCellDef="let task">
       <p *ngFor="let worker of task.assignedWorkers">
         {{worker.name}} {{worker.surname}}

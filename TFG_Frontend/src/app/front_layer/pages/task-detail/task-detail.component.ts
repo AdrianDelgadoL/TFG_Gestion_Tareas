@@ -63,6 +63,7 @@ export class TaskDetailComponent implements OnInit {
       });
       this.task.extraFields?.forEach(item => this.extraFields.push(this.fb.group(item))); // using createField method doesn't work, but this does
       this.assignedWorkers = this.task.assignedWorkers;
+      this.selectedSpec = this.task.type
     }
     else
       await this.router.navigateByUrl("/tasks");  // If for some reason the task doesn't exist, exit to the task list
@@ -139,11 +140,10 @@ export class TaskDetailComponent implements OnInit {
   onTypeChange($event: any) {
     // Deletes last selected spec fields and adds the new one's instead
     if($event.isUserInput) {
-      if(this.selectedSpec) {
-        for (let i in this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]) {
-          this.removeField(0);
-        }
+      for (let i in this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]) {
+        this.removeField(0);
       }
+
       this.selectedSpec = $event.source.value;
       const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
       for (let field of fields) {
