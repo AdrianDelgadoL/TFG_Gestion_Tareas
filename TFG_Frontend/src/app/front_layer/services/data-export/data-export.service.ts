@@ -16,7 +16,6 @@ export class DataExportService {
   downloadFile(data: string, filename = 'data') {
     let arrHeader = ["id", "assignedWorkers", "date", "description", "extraFields", "name", "type", "verified"];
     let csvData = this.ConvertToCSV(data, arrHeader);
-    console.log(csvData)
     let blob = new Blob(['\ufeff' + csvData], { type: 'text/csv;charset=utf-8;' });
     let dwldLink = document.createElement("a");
     let url = URL.createObjectURL(blob);
@@ -34,10 +33,8 @@ export class DataExportService {
 
   ConvertToCSV(objArray: string, headerList: string[]) {
     const array = JSON.parse(objArray);
-    console.log(array)
     let str = '';
     let row = 'No;';
-    console.log(array);
     let newHeaders = ["id", "assignedWorkers", "date", "description", "extraFields", "name", "type", "verified"]; //Headers of data
 
     for (let index in newHeaders) {

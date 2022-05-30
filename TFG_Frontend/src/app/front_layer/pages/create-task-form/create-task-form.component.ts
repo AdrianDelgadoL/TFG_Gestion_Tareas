@@ -47,12 +47,11 @@ export class CreateTaskFormComponent implements OnInit {
     this.workers = await this.getWorkersUC.execute(null);
     this.filteredWorkers = this.workers = this.workers.filter(worker => worker.available)
     this.specs = await this.getSpecsUC.execute(null);
-    console.log(this.specs)
   }
 
-  createTask() {
+  async createTask() {
     if(this.form.valid && this.assignedWorkers.length > 0){
-      this.createTaskUC.execute({
+      await this.createTaskUC.execute({
         name: this.form.value.name,
         date: this.form.value.date,
         type: this.form.value.type,
@@ -105,7 +104,6 @@ export class CreateTaskFormComponent implements OnInit {
       }
       this.selectedSpec = $event.source.value;
       const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
-      console.log(fields)
       for (let field of fields) {
         this.extraFields.insert(0, this.createField(field, ''))
       }

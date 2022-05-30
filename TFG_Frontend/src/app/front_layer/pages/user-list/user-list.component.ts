@@ -25,11 +25,13 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ["name", "surname", "available", "spec", "edit", "delete"];
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  ngOnInit(): void {
-    this.getWorkersUC.execute(null).then(r => {
-      this.userList = new MatTableDataSource(r);
+  async ngOnInit() {
+    try {
+      this.userList = new MatTableDataSource(await this.getWorkersUC.execute(null));
       this.userList.sort = this.sort;
-    }).catch(error => console.log(error));
+    } catch (e) {
+      console.log("Ha ocurrido un error " + e)
+    }
   }
 
   applyFilter($event: Event) {

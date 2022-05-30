@@ -9,7 +9,11 @@ export class CreateTaskUseCase implements UseCaseTemplate<{name: string, date: D
   constructor(private db: DatabaseService) {
   }
 
-  execute(operator: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] } ): void {
-    this.db.createTask(operator).catch(err => console.log("Error creating task " + err));
+  async execute(operator: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] } ) {
+    try {
+      await this.db.createTask(operator);
+    } catch (e) {
+      console.log("Error creando tarea " + e);
+    }
   }
 }

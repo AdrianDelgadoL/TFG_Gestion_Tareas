@@ -29,8 +29,7 @@ export class DatabaseService {
 
   // Task data
   async createTask(docData: {name: string, date: Date, type: string, verified: boolean, assignedWorkers: string[], description: string, extraFields: [] }) {
-    const docRef = await addDoc(collection(this.db, "Tareas"), docData);
-    console.log("Doc created" + docRef.id);
+    await addDoc(collection(this.db, "Tareas"), docData);
   }
 
   async getTaskByID(id: string) {
@@ -51,7 +50,28 @@ export class DatabaseService {
     await updateDoc(docRef, data);
   }
 
-  async getTasks(userid?: string) {
+
+  async getAllTasks() {
+    let taskMapper = new TaskMapper();
+    let tasks: Task[] = [];
+
+    const querySnapshot = await getDocs(collection(this.db, "Tareas"));
+
+    querySnapshot.forEach(doc => {
+      let workers: Worker[] = []
+      doc.data()["assignedWorkers"].forEach((data: string) => {
+        this.getWorkerByID(data).then(worker => {
+          if(worker) {
+            workers.push(worker);
+          }
+        });
+      })
+      tasks.push(taskMapper.deserialize(doc.id, doc.data(), workers))
+    });
+    return tasks
+  }
+
+  async getVerifiedTasks(userid?: string) {
     let taskMapper = new TaskMapper();
     let tasks: Task[] = [];
 

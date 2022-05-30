@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {GetTasksByDateUseCase} from "../../../uc_layer/database/get-tasks-by-date.usecase";
 import {Task} from "../../../entities/task";
-import {GetTasksUseCase} from "../../../uc_layer/database/get-tasks.usecase";
 import {MatTableDataSource} from "@angular/material/table";
 import {UserService} from "../../services/user/user.service";
+import {GetAllTasksUseCase} from "../../../uc_layer/database/get-all-tasks.usecase";
 
 @Component({
   selector: 'app-front-page',
@@ -13,7 +13,7 @@ import {UserService} from "../../services/user/user.service";
 export class FrontPageComponent implements OnInit{
 
   constructor(private getTasksByDateUC: GetTasksByDateUseCase,
-              private getTasksUC: GetTasksUseCase,
+              private getTasksUC: GetAllTasksUseCase,
               public userService: UserService) { }
   displayedColumns: string[] = ["firstColumn", "secondColumn", "thirdColumn"];
   futureTasks: string[] = [];

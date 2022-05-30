@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GetTasksUseCase} from "../../../uc_layer/database/get-tasks.usecase";
+import {GetVerifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
 import {Task} from "../../../entities/task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
@@ -19,7 +19,7 @@ import {DataExportService} from "../../services/data-export/data-export.service"
 export class TaskListComponent implements OnInit {
 
   constructor(
-    private getTasksUC: GetTasksUseCase,
+    private getTasksUC: GetVerifiedTasksUseCase,
     private deleteTaskUC: DeleteTaskUseCase,
     private verifyTaskUC: VerifyTaskUseCase,
     private dialog: MatDialog,
@@ -32,12 +32,9 @@ export class TaskListComponent implements OnInit {
   displayedColumns = ["name", "date", "assignee", "verify", "edit", "delete"];  // Columns displayed in the task list
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  ngOnInit(): void {
-    this.getTasksUC.execute(null).then(r => {
-      this.taskList = new MatTableDataSource(r)
-      this.taskList.sort = this.sort
-      console.log(this.taskList.data.map(task => task))
-    });
+  async ngOnInit() {
+    this.taskList = new MatTableDataSource(await this.getTasksUC.execute(null))
+    this.taskList.sort = this.sort
   }
 
   applyFilter($event: Event) {
