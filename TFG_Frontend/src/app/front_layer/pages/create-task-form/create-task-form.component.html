@@ -79,7 +79,7 @@
             <mat-label>Valor del campo</mat-label>
             <input matInput formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
-          <button (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+          <button *ngIf="i >= nMandatoryFields" (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
         </p>
 
       </div>

@@ -2,16 +2,19 @@
 <div class="container">
   <mat-sidenav-container class="sidenav-container" autosize >
     <mat-sidenav #sidenav mode="over" position="end" (closed)="color = ''">
-      <mat-form-field appearance="standard" class="sidenav">
-        <mat-label>Filtrar por especialidad</mat-label>
-        <input matInput (keyup)="applyFilter($event)">
-      </mat-form-field>
+      <div [hidden]="!userService.userPermits.includes('MODIFY')">
+        <mat-form-field appearance="standard" class="sidenav">
+          <mat-label>Filtrar por especialidad</mat-label>
+          <input  matInput (keyup)="applyFilter($event)">
+        </mat-form-field>
+      </div>
+
       <mat-selection-list [(ngModel)]="assignedWorkers" class="sidenav"> <!-- Data binding is used since the drawer is outside the form -->
-        <mat-list-option *ngFor="let worker of filteredWorkers" [value]="worker.id">
+        <mat-list-option [disabled]="!userService.userPermits.includes('MODIFY')" *ngFor="let worker of filteredWorkers" [value]="worker.id">
           <p>
             {{worker.name}} {{worker.surname}}
             <br>
-            <span *ngIf="selectedSpec == 'Análisis'">   {{worker.platforms}}</span>
+            <span *ngIf="selectedSpec == 'Análisis'"> {{worker.platforms}}</span>
           </p>
         </mat-list-option>
       </mat-selection-list>
@@ -89,11 +92,9 @@
             <mat-label>Valor del campo</mat-label>
             <input matInput [readonly]="!userService.userPermits.includes('MODIFY')" formControlName="fieldValue" id="{{'fieldValue'+i}}">
           </mat-form-field>
-          <button *ngIf="userService.userPermits.includes('MODIFY')" (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+          <button *ngIf="userService.userPermits.includes('MODIFY') && i >= nMandatoryFields" (click)="removeField(i)" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
         </p>
       </div>
-
-
 
       <button mat-raised-button *ngIf="userService.userPermits.includes('MODIFY')" (click)="addField()" style="max-width: 20%; align-self: center" type="button">Añadir campo</button>
 

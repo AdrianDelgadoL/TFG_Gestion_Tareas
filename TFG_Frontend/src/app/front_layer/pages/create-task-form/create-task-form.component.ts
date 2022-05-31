@@ -40,6 +40,7 @@ export class CreateTaskFormComponent implements OnInit {
   assignedWorkers: Worker[] = []; //assigned workers to the task
   selectedSpec: string = "";
   color: string = ""; // color for workers button
+  nMandatoryFields: any;
 
   // Initialize worker and specialization data for worker and spec selectors
 
@@ -104,6 +105,7 @@ export class CreateTaskFormComponent implements OnInit {
       }
       this.selectedSpec = $event.source.value;
       const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
+      this.nMandatoryFields = fields.length;
       for (let field of fields) {
         this.extraFields.insert(0, this.createField(field, ''))
       }

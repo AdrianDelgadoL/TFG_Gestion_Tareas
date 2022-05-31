@@ -48,6 +48,7 @@ export class TaskDetailComponent implements OnInit {
   assignedWorkers: string[] = [];
   color: string = "";
   selectedSpec: string = ""; // Control which spec fields should be displayed
+  nMandatoryFields: number = 0;
 
   // Initialize worker and specialization data for worker and spec selectors
   async ngOnInit() {
@@ -71,6 +72,7 @@ export class TaskDetailComponent implements OnInit {
     this.workers = await this.getWorkersUC.execute(null);
     this.filteredWorkers = this.workers = this.workers.filter(worker => worker.available)
     this.specs = await this.getSpecsUC.execute(null);
+    this.nMandatoryFields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"].length // Get how many fields the user must not be able to delete
   }
 
   async updateTask() {
@@ -146,6 +148,7 @@ export class TaskDetailComponent implements OnInit {
 
       this.selectedSpec = $event.source.value;
       const fields = this.specs.filter(spec => spec.id == this.selectedSpec)[0]["fields"]; //Get the mandatory fields from the selected task type
+      this.nMandatoryFields = fields.length;
       for (let field of fields) {
         this.extraFields.insert(0, this.createField(field, ''))
       }
