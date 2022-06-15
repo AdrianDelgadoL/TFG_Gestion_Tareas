@@ -16,6 +16,7 @@ export class FrontPageComponent implements OnInit{
               private getTasksUC: GetAllTasksUseCase,
               public userService: UserService) { }
   displayedColumns: string[] = ["firstColumn", "secondColumn", "thirdColumn"];
+  historialColumns: string[] = ["name", "worker", "type", "date"];
   futureTasks: string[] = [];
   pastTasks: string[] = [];
   dataSource: any[] = [1]; //Force the mat table to show only 1 row.

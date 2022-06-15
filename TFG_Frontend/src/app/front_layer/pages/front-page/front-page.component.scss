@@ -6,20 +6,16 @@ h1 {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.mat-column-firstColumn {
+.mat-column-firstColumn, .mat-column-name {
   padding-left: 16px;
   font-size: 15px;
   width: 350px;
 }
 
-.mat-column-secondColumn {
+.mat-column-secondColumn, .mat-column-thirdColumn, .mat-column-date, .mat-column-worker, .mat-column-type {
   width: 350px;
   font-size: 15px;
 }
 
-.mat-column-thirdColumn {
-  width: 350px;
-  font-size: 15px;
-}
 
 
