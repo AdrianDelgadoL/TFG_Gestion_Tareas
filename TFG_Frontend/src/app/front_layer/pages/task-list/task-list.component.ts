@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GetVerifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
+import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
 import {Task} from "../../../entities/task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
@@ -19,7 +19,7 @@ import {DataExportService} from "../../services/data-export/data-export.service"
 export class TaskListComponent implements OnInit {
 
   constructor(
-    private getTasksUC: GetVerifiedTasksUseCase,
+    private getTasksUC: GetUnverifiedTasksUseCase,
     private deleteTaskUC: DeleteTaskUseCase,
     private verifyTaskUC: VerifyTaskUseCase,
     private dialog: MatDialog,

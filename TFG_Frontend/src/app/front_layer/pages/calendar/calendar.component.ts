@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CalendarEvent, CalendarView} from "angular-calendar";
-import {GetVerifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
+import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
 import {Task} from "../../../entities/task"
 import {isSameDay, isSameMonth} from "date-fns";
 
@@ -18,7 +18,7 @@ export class CalendarComponent implements OnInit{
   events: CalendarEvent[] = []
   activeDayIsOpen: boolean = false;
 
-  constructor(private getTasksUC: GetVerifiedTasksUseCase) { }
+  constructor(private getTasksUC: GetUnverifiedTasksUseCase) { }
 
 
   async ngOnInit() {
