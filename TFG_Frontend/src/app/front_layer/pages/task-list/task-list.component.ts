@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
+import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-unverified-tasks.usecase";
 import {Task} from "../../../entities/task";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";

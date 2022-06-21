@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CalendarEvent, CalendarView} from "angular-calendar";
-import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-verified-tasks.usecase";
+import {GetUnverifiedTasksUseCase} from "../../../uc_layer/database/get-unverified-tasks.usecase";
 import {Task} from "../../../entities/task"
 import {isSameDay, isSameMonth} from "date-fns";
 
